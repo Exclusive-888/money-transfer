@@ -1,0 +1,69 @@
+{% extends 'base/base.html' %}
+
+{% load static %}
+
+{%block title %}View Reasons{%endblock%}
+
+{% block breadcrumbs %}
+
+<li><a href="{% url 'administration:reason' %}"><i class="iconify" data-icon="eva:arrow-ios-forward-fill"></i><span>Reasons</span></a></li>
+<li><i class="iconify" data-icon="eva:arrow-ios-forward-fill"></i><span>View Reasons</span></li>
+
+{% endblock %}
+
+{% block breadcrumbsbtn %} 
+
+   {% for reason in view_reason %} 
+    <a href="{% url 'administration:edit_reason' reason.id %}"><button type="btn" class="btn new-add">Edit</button></a>
+       <a href="{% url 'administration:delete_reason' reason.id %}"><button type="btn" class="btn clear-btn">Delete</button></a>
+   {% endfor %}
+{% endblock %}
+
+
+{% block content %}
+{%if view_reason %}
+{% for reason in view_reason %} 
+<div class="row row-sm mg-b-20">
+    <div class="col-sm-12 col-lg-12">
+        <div class="card card-table-one">
+        <h6 class="card-title">View Reason for sending</h6>
+        <hr>
+        <div class="view-agent">
+            <div class="row">
+                <div class="col-md-6 col-sm-12">
+                    <div class="border-right">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <p><span>Reason :</span></p>
+                        </div>
+                        <div class="col-md-8">
+                            <p>{{reason.reason_type}}</p>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+    </div>
+</div>
+{% endfor %}
+{% else %}
+<p>No Record Found</p>
+{% endif %}
+{% endblock%}
+{% block js %}
+<script>
+$(document).ready(function() {
+    
+    $('.clear-btn').click(function () {
+        var market = parseFloat($('#id_market_rate').val());
+        var rate = parseFloat($('#id_our_rate').val());
+        var total = parseFloat($('#id_total_commission').val(market - rate));
+
+    });
+
+      
+});
+</script>
+{% endblock%}

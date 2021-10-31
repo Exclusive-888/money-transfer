@@ -1,0 +1,26 @@
+ .floating-menu-area{
+    display: none;
+ }
+@media screen and (min-device-width: 320px) and (max-device-width: 768px) { 
+   .floating-menu-area {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    padding: 0;
+    z-index: 3;
+    margin: 0;
+    display: block;
+}
+.floating-menu {
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    margin: 0;
+    background: #eaeef7;
+    padding: 15px 20px;
+    border-radius: 15px 15px 0px 0px;
+    text-align: center;
+    font-size: 13px;
+}
+}
+

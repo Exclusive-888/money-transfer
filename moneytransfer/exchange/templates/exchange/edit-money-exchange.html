@@ -1,0 +1,37 @@
+{% extends 'base/base.html' %}
+{% load crispy_forms_tags %}
+
+{%block title %}Edit Money Exchange{%endblock%}
+
+{% block breadcrumbs %}
+
+<li><a href="{% url 'exchange:money_exchange' %}"><i class="iconify" data-icon="eva:arrow-ios-forward-fill"></i><span>Money Exchange</span></a></li>
+<li><i class="iconify" data-icon="eva:arrow-ios-forward-fill"></i><span> Edit Exchange</span></li>
+
+{% endblock %}
+
+{% block breadcrumbsbtn %} 
+
+   <button form="id-editmoneyexchangeform" type="submit" class="btn new-add">Save</button>
+   <button form="id-editmoneyexchangeform" type="reset" class="btn clear-btn">Reset</button>
+
+{% endblock %}
+
+{% block content %} 
+
+<div class="row row-sm mg-b-20">
+   <div class="col-sm-12 col-lg-12">
+      <div class="card card-table-one">
+      <form  method="post" id="id-editmoneyexchangeform" enctype="multipart/form-data">
+         {% csrf_token %}
+         {% crispy form %}
+         <br>  
+      </form>
+      </div>
+   </div>
+</div>
+
+{% endblock%}
+ 
+{%block js%}
+{% endblock %}

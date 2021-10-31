@@ -1,0 +1,53 @@
+{% extends 'base/base.html' %}
+
+{% load static %}
+
+{%block title %}Agent{%endblock%}
+
+{% block breadcrumbs %}
+
+{% load crispy_forms_tags %}
+
+<li><a href="{% url 'administration:agent' %}"><i class="iconify" data-icon="eva:arrow-ios-forward-fill"></i><span>Agent</span></a></li>
+<li><i class="iconify" data-icon="eva:arrow-ios-forward-fill"></i><span>Edit Agent Profile</span></li>
+
+{% endblock %}
+
+{% block breadcrumbsbtn %} 
+
+   <button form="id-editagentform" type="submit" class="btn new-add">Save</button>
+   <button form="id-editagentform" type="reset" class="btn clear-btn">Reset</button>
+
+{% endblock %}
+
+{% block content %} 
+
+   <div class="row row-sm mg-b-20">
+      <div class="col-sm-12 col-lg-12">
+         <div class="card card-table-one">
+         <form class="" id="id-editagentform" method="post">
+            {% csrf_token %}
+            {% crispy form %}
+         </form>
+         </div>
+      </div>
+   </div>
+
+{% endblock%}
+
+
+{%block js%}
+<script>
+   $(function(){
+      'use strict'
+      $(document).ready(function(){
+         $('.select').select2({
+         placeholder: 'Select',
+         });
+         $('.lazyselect').select2({
+         placeholder: 'Select',
+         });
+      });
+   });
+</script>
+{% endblock %}

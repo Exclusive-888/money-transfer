@@ -1,0 +1,77 @@
+{% extends 'base/base.html' %}
+
+{% load static %}
+
+{%block title %}FAQ'S{%endblock%}
+
+{% block breadcrumbs %}
+
+<li><i class="iconify" data-icon="eva:arrow-ios-forward-fill"></i><span>FAQ's </span></li>
+
+{% endblock %}
+
+{% block breadcrumbsbtn %} 
+
+   <a href="{% url 'administration:add_faq'%}">
+    <button type="btn" class="btn new-add">Add New</button>
+    </a>
+
+{% endblock %}
+
+{% block content %}      
+<div class="main-counter">
+   <div class="row" >
+      <div class="col-md-12 col-sm-12">
+         <div class="card">
+            <div class="card-body">
+               <div class="faq-list">
+                  <h6 class="card-title">FAQ's</h6>
+                  <hr>
+                   {%if faq_list%}
+                    {% for faq in faq_list%}    
+                  <ul class="accordian-list">  
+                  <div class="faq-edit-delete">
+                     <ul>
+                        <li>
+                           <a href="{% url 'administration:edit_faq' faq.id %}"><span class="iconify faq-edit-icon" data-icon="akar-icons:edit"></span></a>
+                           <a href="{% url 'administration:delete_faq' faq.id %}"><span class="iconify faq-delete-icon" id="delete" data-icon="fluent:delete-28-regular"></span></a>
+                        </li>
+                     </ul>
+                  </div>        
+                     <li class="accordian-item">
+                        <input type="checkbox" class="accordian-checkbox" checked>
+                        <h2 class="accordian-title"> 
+                        {{faq.faq_question}}
+                        </h2>
+                        <p class="accordian-description">{{faq.faq_answer}}</p>
+                     </li>                  
+                  </ul>
+                   {% endfor %}
+                    {% else %}
+                    <tr>
+                    <td>No Record Found </td>
+                    </tr>
+                    {% endif %} 
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+{% endblock%}
+{%block js%}
+<script>
+{% for msg in messages %}
+ 
+Swal.fire(
+  'Good job!',
+  '{{msg}}',
+  'success'
+)
+{% endfor %}
+</script>
+
+{% endblock %}
+
+
+

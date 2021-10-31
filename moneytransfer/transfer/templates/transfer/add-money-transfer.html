@@ -1,0 +1,142 @@
+{% extends 'base/base.html' %}
+
+{% load crispy_forms_tags %}
+
+{%block title %}Money Transfer{%endblock%}
+
+{% block breadcrumbs %}
+
+    <li><a href="{% url 'transfer:money_transfer' %}"><i class="iconify" data-icon="eva:arrow-ios-forward-fill"></i><span>Money Transfer</span></a></li>
+    <li><i class="iconify" data-icon="eva:arrow-ios-forward-fill"></i><span> Add Transfer</span></li>
+
+{% endblock %}
+
+{% block breadcrumbsbtn %} 
+
+   <button form="id-moneytransferform" type="submit" class="btn new-add">Save</button>
+   <button form="id-moneytransferform" type="reset" class="btn clear-btn">Reset</button>
+
+{% endblock %}
+
+
+{% block content %} 
+
+    <div class="row row-sm mg-b-20">
+        <div class="col-sm-12 col-lg-12">
+            <div class="card card-table-one">
+                <form  method="post" id="id-moneytransferform"  data-cities-url="{% url 'transfer:ajax_load_cities' %}" novalidate>
+                    {% csrf_token %}
+                    {% crispy form %}
+                </form>
+            </div>
+        </div>
+    </div>
+
+{% endblock%}
+ 
+{%block js%}
+<script>
+$(function() {
+    if($("#div_id_send_method").val() == 0)
+         $("#div_id_outstanding_amount").hide();
+         $("#div_id_due_date").hide();
+         $("#div_id_paid_amount").hide();
+         $("#div_id_agent_bank").hide();
+         
+});
+
+$("#div_id_send_method").change(function() {
+    var selectedVal = $('option:selected', this).text();
+    if(selectedVal == "Debt")
+    {
+        $('#div_id_paid_amount').show();
+        $('#div_id_due_date').show();
+        $('#div_id_outstanding_amount').show();
+
+    }
+    else
+    {
+        $('#div_id_paid_amount').hide();
+        $('#div_id_due_date').hide();
+        $('#div_id_outstanding_amount').hide();
+
+    }
+});
+$("#div_id_send_method").change(function() {
+    var selectedVal = $('option:selected', this).text();
+    if(selectedVal == "Bank Transfer" || selectedVal == "Cheque Transfer")
+    {
+         $('#div_id_agent_bank').show();
+    }
+    else
+    {
+        $('#div_id_agent_bank').hide();
+    }
+
+});
+
+$(document).ready(function() {
+    $('.form-group').keyup(function () {
+        var amount = parseFloat($('#id_sending_amount').val());
+        var exchange = parseFloat($('#id_total_commission').val());
+        var transaction = parseFloat($('#id_transfer_rate').val());
+        var paid = parseFloat($('#id_paid_amount').val());
+        var amount = parseFloat($('#id_sending_amount').val());
+        
+        $('#id_receiving_amount').val(exchange * amount);
+        $('#id_total_payment').val(amount + transaction);
+        $('#id_outstanding_amount').val(amount + transaction - paid);
+
+
+    });
+    {% comment %} $('.form-group').change(function () {
+        var amount = parseFloat($('#id_sending_amount').val());
+        var exchange = parseFloat($('#id_total_commission').val());
+        var transaction = parseFloat($('#id_transfer_rate').val());
+        var paid = parseFloat($('#id_paid_amount').val());
+        var amount = parseFloat($('#id_sending_amount').val());
+        
+        $('#id_receiving_amount').val(exchange * amount);
+        $('#id_total_payment').val(amount + transaction);
+        $('#id_outstanding_amount').val(amount + transaction - paid);
+
+
+    });  
+   {% endcomment %}
+});
+</script>
+<script>
+    $("#id_from_currency").change(function () {
+      var url = $("#id-moneytransferform").attr("data-cities-url");
+      var receiving = $(this).val();
+
+      $.ajax({
+        url: url,
+        data: {
+          'from_currency': receiving,
+         },
+        success: function (data) {
+        debugger
+          $("#id_to_currency").html(data);
+        }
+      });
+
+    });
+    
+    $("#id_to_currency").change(function () {
+      var url = '/transfer/'
+      var send = $(this).val();
+
+      $.ajax({
+        url: url,
+        data: {
+          'to_currency': send,
+         },
+        success: function (data) {
+          $("#id_total_commission").html(data);
+        }
+      });
+
+    });
+  </script> 
+{% endblock %}

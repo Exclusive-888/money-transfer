@@ -1,0 +1,47 @@
+{% extends 'base/base.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+{%block title %}Agent Profile{%endblock%}
+
+{% block breadcrumbs %}
+<li><i class="iconify" data-icon="eva:arrow-ios-forward-fill"></i><span>Add New Agent</span></li>
+
+{% endblock %}
+
+{% block content %} 
+<div class="row row-sm mg-b-20">
+   <div class="col-sm-12 col-lg-12">
+      <div class="card card-table-one">
+      <h6 class="card-title">Edit Profile</h6>
+      <hr>
+     <div class="row">
+     <a href="{%url 'administration:agent_change_password'%}">
+       <button type="btn" class="btn new-add reset-pass"><span class="iconify" data-icon="grommet-icons:power-reset"></span> Reset Password</button>
+     </a>
+    <br/>
+      <div class="col-md-3">
+        <div class="update-pic">
+            <img src="{%static 'image/admin-pic.png'%}">
+        </div>
+        <div class="upload-btn-wrapper">
+            <button class="upload">Upload a file</button>
+            <input type="file" name="myfile" />
+        </div>
+    </div>
+     <div class="col-md-9">                
+      <form class="" id="" method="post">
+         {% csrf_token %}
+         {% crispy form %}
+         <br>
+         <button type="submit" class="btn new-add">Save</button>
+         <button type="reset" class="btn clear-btn">Reset</button>  
+      </form>
+      
+      </div>
+      </div>
+     </div>
+   </div>
+</div>
+
+{% endblock%}
+ 

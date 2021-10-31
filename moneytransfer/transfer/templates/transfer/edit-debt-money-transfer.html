@@ -1,0 +1,71 @@
+{% extends 'base/base.html' %}
+{% load crispy_forms_tags %}
+
+{%block title %}Debt Money Transfer{%endblock%}
+
+{% block breadcrumbs %}
+
+<li><a href="{% url 'transfer:debt_transfer' %}"><i class="iconify" data-icon="eva:arrow-ios-forward-fill"></i><span>Debt Money Transfer</span></a></li>
+<li><i class="iconify" data-icon="eva:arrow-ios-forward-fill"></i><span> Edit Debt Transfer</span></li>
+
+{% endblock %}
+
+{% block breadcrumbsbtn %} 
+
+   <button type="submit" form="id-moneytransferform" class="btn new-add">Save</button>
+   <button type="reset" form="id-moneytransferform" class="btn clear-btn">Reset</button>
+{% endblock %}
+
+{% block content %} 
+
+
+<div class="row row-sm mg-b-20">
+   <div class="col-sm-12 col-lg-12">
+      <div class="card card-table-one">
+      <form  method="post" id="id-moneytransferform"enctype="multipart/form-data">
+         {% csrf_token %}
+         {% crispy form %}
+      </form>
+      </div>
+   </div>
+</div>
+
+{% endblock%}
+ 
+{%block js%}
+<script>
+   $(function(){
+      'use strict'
+      $(document).ready(function(){
+         $('.select').select2({
+         placeholder: 'Select',
+         });
+         $('.lazyselect').select2({
+         placeholder: 'Select',
+         });
+      });
+   });
+$(document).ready(function() {  
+    $('#id_paid_amount').change(function () {
+        var paid = parseFloat($('#id_paid_amount').val());
+        var outamount = parseFloat($('#id_outstanding_amount').val());
+        
+        $('#id_outstanding_amount').val(outamount - paid);
+
+    });   
+
+   
+   $("#div_id_sending_currency").hide(); 
+   $("#div_id_sender_agent").hide(); 
+   $("#div_id_receiver_customer").hide(); 
+   $("#div_id_debt_id").hide(); 
+   $("#div_id_sending_amount").hide(); 
+
+
+
+
+});
+
+</script>   
+
+{% endblock %}

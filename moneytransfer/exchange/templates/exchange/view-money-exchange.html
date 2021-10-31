@@ -1,0 +1,175 @@
+{% extends 'base/base.html' %}
+
+{% load static %}
+
+{%block title %}View Money Exchange{%endblock%}
+
+{% block breadcrumbs %}
+
+<li><a href="{% url 'exchange:money_exchange' %}"><i class="iconify" data-icon="eva:arrow-ios-forward-fill"></i><span>Money Exchange</span></a></li>
+<li><i class="iconify" data-icon="eva:arrow-ios-forward-fill"></i><span>View Exchange</span></li>
+
+{% endblock %}
+
+{% block breadcrumbsbtn %} 
+{% for exchange in view_exchange %} 
+
+      <a href="{% url 'exchange:edit_exchange' exchange.id%}"><button type="btn" class="btn new-add">Edit</button></a>
+      <a href="{% url 'exchange:delete_exchange' exchange.id%}"><button type="btn" class="btn clear-btn">Delete</button></a>     
+{% endfor %}
+{% endblock %}
+
+{% block content %}
+{%if view_exchange %}
+{% for exchange in view_exchange %} 
+<div class="row row-sm mg-b-20">
+    <div class="col-sm-12 col-lg-12">
+        <div class="card card-table-one">
+            <h6 class="card-title">Basic Info</h6>
+            <hr/>
+            <div class="view-agent">
+            <div class="row">
+                <div class="col-md-6 col-sm-12">
+                    <div class="border-right">
+                        <div class="row">
+                        <div class="col-md-4">
+                            <p> <span>ID :</span> </p>
+                        </div>
+                        <div class="col-md-8">
+                            <p>{{exchange.id}}</p>
+                        </div>
+                        </div>
+                        <div class="row">
+                        <div class="col-md-4">
+                            <p> <span>Buying Currency :</span> </p>
+                        </div>
+                        <div class="col-md-8">
+                            <p>{{exchange.buying_currency}}</p>
+                        </div>
+                        </div>
+                        <div class="row">
+                        <div class="col-md-4">
+                            <p> <span>Selling Currency :</span> </p>
+                        </div>
+                        <div class="col-md-8">
+                            <p>{{exchange.selling_currency}}</p>
+                        </div>
+                        </div>
+                        <div class="row">
+                        <div class="col-md-4">
+                            <p> <span>Buying Amount :</span> </p>
+                        </div>
+                        <div class="col-md-8">
+                            <p>{{exchange.buying_amount}}</p>
+                        </div>
+                        </div>
+                        <div class="row">
+                        <div class="col-md-4">
+                            <p> <span>Assign Agent :</span> </p>
+                        </div>
+                        <div class="col-md-8">
+                            <p>{{exchange.assign_agent}}</p>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-12">
+                    <div class="border-right">
+                        <div class="row">
+                        <div class="col-md-4">
+                            <p> <span>Exchange Rate :</span> </p>
+                        </div>
+                        <div class="col-md-8">
+                            <p>{{exchange.exchange_rate}}</p>
+                        </div>
+                        </div>
+                        <div class="row">
+                        <div class="col-md-4">
+                            <p> <span>Exchange Date :</span> </p>
+                        </div>
+                        <div class="col-md-8">
+                            <p>{{exchange.exchange_date}}</p>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+            <h6 class="card-title card-title-profile2">Customer Info</h6>
+            <hr/>
+            <div class="view-agent">
+            <div class="row">
+                <div class="col-md-6 col-sm-12">
+                    <div class="border-right">
+                        <div class="row">
+                        <div class="col-md-4">
+                            <p> <span>Customer Name :</span> </p>
+                        </div>
+                        <div class="col-md-8">
+                            <p>{{exchange.customer_name}}</p>
+                        </div>
+                        </div>
+                        <div class="row">
+                        <div class="col-md-4">
+                            <p> <span>Address :</span> </p>
+                        </div>
+                        <div class="col-md-8">
+                            <p>{{exchange.address}}</p>
+                        </div>
+                        </div>
+                        <div class="row">
+                        <div class="col-md-4">
+                            <p> <span>Postcode :</span> </p>
+                        </div>
+                        <div class="col-md-8">
+                            <p>{{exchange.postal_code}}</p>
+                        </div>
+                        </div>
+                        <div class="row">
+                        <div class="col-md-4">
+                            <p> <span>Country :</span> </p>
+                        </div>
+                        <div class="col-md-8">
+                            <p>{{exchange.country}}</p>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-12">
+                    <div class="border-right">
+                        <div class="row">
+                        <div class="col-md-4">
+                            <p> <span>Mobile :</span> </p>
+                        </div>
+                        <div class="col-md-8">
+                            <p>{{exchange.mobile_no}}</p>
+                        </div>
+                        </div>
+                        <div class="row">
+                        <div class="col-md-4">
+                            <p> <span>City :</span> </p>
+                        </div>
+                        <div class="col-md-8">
+                            <p>{{exchange.city}}</p>
+                        </div>
+                        </div>
+                        <div class="row">
+                        <div class="col-md-4">
+                            <p> <span>State :</span> </p>
+                        </div>
+                        <div class="col-md-8">
+                            <p>{{exchange.state}}</p>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endfor %}
+{% else %}
+<p>No Record Found</p>  
+{% endif %}
+{% endblock%}

@@ -1,0 +1,224 @@
+{% extends 'base/base.html' %}
+
+{% load static %}
+{%block title %}Reasons For Sending{%endblock%}
+{% load widget_tweaks %}
+
+{% block breadcrumbs %}
+
+<li><i class="iconify" data-icon="eva:arrow-ios-forward-fill"></i><span>Reasons For Sending </span></li>
+
+{% endblock %}
+
+{% block breadcrumbsbtn %} 
+
+   <a href="{% url 'administration:new_reason'%}">
+    <button type="btn" class="btn new-add">Add New</button>
+    </a>
+{% endblock %}
+
+
+{% block content %}  
+
+<div class="row row-sm mg-b-20">
+        <div class="col-sm-12 col-lg-12">
+            <div class="card card-table-one">
+            <div class="main-title">
+                <h6 class="card-title">Reasons For Sending</h6>
+                <!-- filter-mobile-view Start-->
+                <div class="filter-mobile-view">
+                    <button class="btn filter-btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasBottom" aria-controls="offcanvasBottom"><span class="iconify" data-icon="system-uicons:filtering"></span>Filter</button>
+                    <div class="offcanvas offcanvas-bottom" tabindex="-1" id="offcanvasBottom" aria-labelledby="offcanvasBottomLabel">
+                        <div class="offcanvas-header">
+                        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                        </div>
+                        <div class="offcanvas-body small">
+                        <form method="get">
+                        <div class="row">
+                    <div class="col-md-6 col-xl-3 col-sm-12">
+                        <label for="ID" class="form-label">Search By Reason</label>
+                        {% render_field filter.form.reason_type class="form-control" %}
+
+                    </div>
+                    <div class="col-md-6 col-xl-3 col-sm-12">
+                        <div class="filter-field-btn">
+                        <button type="submit" class="btn new-add">Search</button>
+                        <a href="{% url 'administration:reason'%}" class="btn clear-btn" > Clear All </a>
+                     </div>
+                     </form>
+                    </div>
+                </div>
+              
+                        </div>
+                    </div>
+                </div>
+                <!-- filter-mobile-view End-->
+            </div>
+            <hr />
+            <div class="filter-field">
+            <form method="get">
+                <div class="row">
+                    <div class="col-md-6 col-xl-3 col-sm-12">
+                        <label for="ID" class="form-label">Search By Reason</label>
+                           {% render_field filter.form.reason_type class="form-control" %}
+
+                    </div>
+                    <div class="col-md-6 col-xl-3 col-sm-12">
+                        <div class="filter-field-btn">
+                        <button type="submit" class="btn new-add">Search</button>
+                        <a href="{% url 'administration:reason'%}" class="btn clear-btn" > Clear All </a>
+                     </div>
+                    </div>
+                </div>
+            </form>    
+            </div>
+            <div class="table-responsive">
+                <table class="table table-hover mg-b-0">
+                    <thead>
+                        <tr>
+                        <th>
+                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                        </th>
+                        <th>ID</th>
+                        <th>Reason</th>
+                        <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="pageTable">
+                    {%if page_obj%}
+                    {% for reason in page_obj%}
+                        <tr class="table-data">
+                        <td>
+                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                        </td>
+                        <td>{{reason.id}}</td>
+                        <td>{{reason.reason_type}}</td>
+                        <td class="action-option">
+                            <div class="dropdown">
+                                <span class="iconify dropdown-toggle" type="button" id="dropdownMenu2" data-bs-toggle="dropdown" aria-expanded="false" data-icon="bi:three-dots"></span>
+                                <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                                    <li>
+                                    <a href="{% url 'administration:view_reason' reason.id %}" class="dropdown-item">View</a>
+                                    </li>
+                                    
+                                   
+                                </ul>
+                            </div>
+                        </td>
+                        </tr>
+                    {% endfor %}
+                    {% else %}
+                    <tr>
+                    <td>No Record Found </td>
+                    </tr>
+                    {% endif %}    
+                    </tbody>
+                </table>
+            </div>
+            <!-- table-responsive -->
+            <div class="table-pagination">   
+            <nav aria-label="Page navigation example">
+        <ul class="pagination">
+         {% if page_obj.has_previous %}
+            <li class="page-item"> <a class="page-link" href="?page={{ page_obj.previous_page_number }}" tabindex="-1" aria-disabled="true">Previous</a> </li>
+         {% endif %}
+         {% for i in page_obj.paginator.page_range%}
+         {% if page_obj.number == i %}   
+            <li class="page-item"><a class="page-link" href="?page={{i}}">{{i}}</a></li>
+            {% elif i > page_obj.number|add:'-3' and i < page_obj.number|add:'1' %}
+               <li class="page-item"><a class="page-link" href="?page={{i}}">{{i}}</a></li>
+            {% endif %}         
+            {% endfor %} 
+            {% if page_obj.paginator.num_pages > page_obj.number|add:'1' %}
+               <li><a href="?page={{ page_obj.number|add:'1' }}"></a></li>
+            {% endif %}  
+         {% if page_obj.has_next %}   
+            <li class="page-item"> <a class="page-link" href="?page={{ page_obj.next_page_number }}">Next&hellip;</a> </li>
+         {% endif %}      
+         </ul>
+      </nav>
+         </div>
+        </div>
+        </div>
+    </div>
+{% endblock%}
+{% block js %}
+<script>
+{% for msg in messages %}
+ 
+Swal.fire(
+  'Good job!',
+  '{{msg}}',
+  'success'
+)
+{% endfor %}
+</script>
+<script>
+    $(document).ready(function () {
+        $(".edit-mode").hide();
+        $(".edtbtn,.canbtn").on('click', function () {
+            var tr = $(this).parents('tr:first');
+            tr.find('.edit-mode,.display-mode').toggle();
+        });
+        //update code
+        $(".updbtn").on("click", function () {
+            var tr = $(this).parents('tr:first');
+            var emailid = $(this).attr("data-id");
+            var name = tr.find("#tname").val();
+            var password = tr.find("#tpwd").val();
+            $.ajax({
+                type: "get",
+                contentType: "application/json;charset=utf-8",
+                url: '@Url.Action("updateuser", "Users")',
+                data: { "name": name,"emailid":emailid,"password": password },
+                dataType: "json",
+                success: function (data) {
+                    swal("User Login Credential has been Updeted!", {
+                        icon: "success",
+                    });
+                    tr.find("#sname").text(name);
+                    tr.find("#spwd").text(password);
+                    tr.find('.edit-mode,.display-mode').toggle();
+                }
+            });
+        });
+        
+        //delete code
+        $(".clear-btn").on("click", function () {
+            swal({
+                title: "Are you sure?",
+                text: "Once deleted, you will not be able to recover User Credentials Data.",
+                icon: "warning",
+                type: 'warning',
+                showCancelButton: true,
+                buttons: true,
+                dangermode: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            })
+                .then((willDelete) => {
+                    if (willDelete) {
+                        var tr = $(this).parents('tr:first');
+                        var emailid = $(this).attr("data-id");
+                        $.ajax({
+                            type: "get",
+                            contentType: "application/json;charset=utf-8",
+                            url: '@Url.Action("deleteuser", "Users")',
+                            data: { "emailid": emailid },
+                            dataType: "json",
+                            success: function (data) {
+                                tr.hide();
+                                swal("User Login Credential has been deleted!", {
+                                    icon: "success",
+                                });
+                            }
+                        });
+                    } else {
+                        swal("User Credential Data is safe!");
+                    }
+                });
+        });
+    });
+</script>
+{% endblock %}

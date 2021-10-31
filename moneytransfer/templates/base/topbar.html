@@ -1,0 +1,41 @@
+{% load static %}
+
+<div class="top-bar">
+<div class="top-search">
+    <div class="mini-logo">
+        <a href="{% url 'administration:dashboard' %}"><img src="{% static 'image/logo-6.png'%}" alt="Mini-logo"></a>
+    </div>
+    <div class="input-group search-group">
+        <span class="input-group-text" id="basic-addon1"><i  class="iconify" data-icon="akar-icons:search"></i></span>
+        <form>
+        <input type="text"class="form-control" placeholder="Search" aria-label="Username" id="search"aria-describedby="basic-addon1">
+        </form>
+    </div>
+</div>
+<div class="admin-login">
+    <div class="faqs">
+        <a href="{%url 'administration:faq_list'%}"><span class="iconify" data-icon="ant-design:question-circle-outlined"></span>FAQ's</a>
+    </div>
+    <div class="admin-dropdown">
+        <div class="dropdown ">
+            <a class="btn" href="#" id="dropdownMenuButton3" data-bs-toggle="dropdown" aria-expanded="false">
+            <div class="admin-dropdown">
+                <img src="{% static 'image/admin.png' %}" class="admin-photo" alt="Admin">
+                <div>
+                    <h5 class="admin-name">{{user.first_name}}&nbsp;{{user.last_name}}</h5>
+                    <p class="admin-name">{{user.user_type}}</p>
+                </div>
+            </div>
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton3">
+            <li><a class="dropdown-item" href="{%url 'administration:agent_profile'%}">Profile</a></li>
+            <li><a class="dropdown-item" href="{%url 'administration:agent_change_password'%}">Change Password</a></li>
+            <li><a class="dropdown-item" href="{% url 'administration:logout'%}">Log Out</a></li>
+            </ul>
+        </div>
+        </div>
+    <div>
+    </div>
+</div>
+</div>
+ 

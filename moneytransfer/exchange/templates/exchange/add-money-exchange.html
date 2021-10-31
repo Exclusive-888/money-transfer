@@ -1,0 +1,65 @@
+{% extends 'base/base.html' %}
+{% load crispy_forms_tags %}
+
+{%block title %}Money Exchange{%endblock%}
+
+{% block breadcrumbs %}
+
+   <li><a href="{% url 'exchange:money_exchange' %}"><i class="iconify" data-icon="eva:arrow-ios-forward-fill"></i><span>Money Exchange</span></a></li>
+   <li><i class="iconify" data-icon="eva:arrow-ios-forward-fill"></i><span> New Exchange</span></li>
+
+{% endblock %}
+
+{% block breadcrumbsbtn %} 
+
+   <button form="id-moneyexchangeform" type="submit" class="btn new-add">Save</button>
+   <button form="id-moneyexchangeform" type="reset" class="btn clear-btn">Reset</button>
+
+{% endblock %}
+
+{% block content %} 
+
+<div class="row row-sm mg-b-20">
+   <div class="col-sm-12 col-lg-12">
+      <div class="card card-table-one">
+      <form  method="post" id="id-moneyexchangeform" data-cities-url="{% url 'transfer:load_rate' %}" enctype="multipart/form-data">
+         {% csrf_token %}
+         {% crispy form %}
+         <br>  
+      </form>
+      </div>
+   </div>
+</div>
+
+{% endblock%}
+ 
+{%block js%}
+<script>
+{% comment %} $("#id_selling_currency").change(function () {
+      var url = $("#id-moneyexchangeform").attr("data-cities-url");
+      var send = $(this).val();
+
+      $.ajax({
+        url: url,
+        data: {
+          'id_selling_currency': send,
+         },
+        success: function (data) {
+          $("#id_exchange_rate").html(data);
+        }
+      });
+
+    }); {% endcomment %}
+
+    $('.form-group').change(function () {
+        var buying = parseFloat($('#id_buying_amount').val());
+        var exchange = parseFloat($('#id_exchange_rate').val());
+        var selling = parseFloat($('#id_selling_amount').val());
+        
+        
+        $('#id_selling_amount').val(exchange * buying);
+        
+    });
+    
+</script
+{% endblock %}

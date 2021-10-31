@@ -1,0 +1,190 @@
+{% extends 'base/base.html' %}
+{% load crispy_forms_tags %}
+{% load widget_tweaks %}
+
+{%block title %}Money Transfer{%endblock%}
+
+{% block breadcrumbs %}
+
+<li><i class="iconify" data-icon="eva:arrow-ios-forward-fill"></i><span>Money Transfer</span></li>
+
+{% endblock %}
+
+{% block breadcrumbsbtn %} 
+
+   <a href="{% url 'transfer:new_money_transfer'  %}">
+   <button type="btn" class="btn new-add">Add New</button>
+   </a>
+
+{% endblock %}
+
+{% block content %} 
+<div class="row row-sm mg-b-20">
+    <div class="col-sm-12 col-lg-12">
+    <div class="card card-table-one">
+    <div class="main-title">
+            <h6 class="card-title">Money Transfer</h6>
+            <!-- filter-mobile-view Start-->
+            <div class="filter-mobile-view">
+               <button class="btn filter-btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasBottom" aria-controls="offcanvasBottom"><span class="iconify" data-icon="system-uicons:filtering"></span>Filter</button>
+               <div class="offcanvas offcanvas-bottom" tabindex="-1" id="offcanvasBottom" aria-labelledby="offcanvasBottomLabel">
+                  <div class="offcanvas-header">
+                     <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                  </div>
+                  <div class="offcanvas-body small">
+                  <form method="get">
+               <div class="row">
+                  <div class="col-md-6 col-xl-3 col-sm-12">
+                     <label for="exampleDataList" class="form-label">Search By Agent</label>
+                        {% render_field filter.form.sender_agent class="form-control " %}
+                  </div>
+                  <div class="col-md-6 col-xl-3 col-sm-12">
+                     <label for="exampleDataList" class="form-label">Search By Customer</label>
+                       {% render_field filter.form.sender_cu class="form-control" %}
+                  </div>
+                  <div class="col-md-6 col-xl-3 col-sm-12">
+                     <label for="exampleDataList2" class="form-label">Search By Total Payment</label>
+                      {% render_field filter.form.total_payment class="form-control" %}
+                  </div>
+                  <div class="col-md-6 col-xl-3 col-sm-12">
+                     <div class="filter-field-btn">
+                        <button type="submit" class="btn new-add">Search</button>
+                        <a href="{% url 'transfer:money_transfer'%}" class="btn clear-btn" > Clear All </a>
+                     </div>
+                  </div>
+               </div>
+              </form> 
+               </div>
+               </div>
+            </div>
+            <!-- filter-mobile-view End-->
+        </div>
+    <hr>
+    <div class="filter-field">
+              <form method="get">
+               <div class="row">
+                  <div class="col-md-6 col-xl-3 col-sm-12">
+                     <label for="exampleDataList" class="form-label">Search By Agent</label>
+                        {% render_field filter.form.sender_agent class="form-control select" %}
+                  </div>
+                  <div class="col-md-6 col-xl-3 col-sm-12">
+                     <label for="exampleDataList" class="form-label">Search By Customer</label>
+                       {% render_field filter.form.sender_cu class="form-control select" %}
+                  </div>
+                  <div class="col-md-6 col-xl-3 col-sm-12">
+                     <label for="exampleDataList2" class="form-label">Search By Total Payment</label>
+                      {% render_field filter.form.total_payment class="form-control " %}
+                  </div>
+                  <div class="col-md-6 col-xl-3 col-sm-12">
+                     <div class="filter-field-btn">
+                        <button type="submit" class="btn new-add">Search</button>
+                        <a href="{% url 'transfer:money_transfer'%}" class="btn clear-btn" > Clear All </a>
+                     </div>
+                  </div>
+               </div>
+              </form>   
+         </div>
+    <div class="table-responsive">
+        <table class="table table-hover mg-b-0">
+        <thead>
+            <tr>
+            <th>
+                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+            </th>
+            <th>ID</th>
+            <th>Sender</th>
+            <th>Receiver</th>
+            <th>Sending Amount</th>
+            <th>Receiving Amount</th>
+            <th>Date Sent</th>
+            <th>Receiver Agent</th>
+            <th>Date Received</th>
+            <th>Status</th>
+            <th>Action</th>
+            </tr>
+        </thead>
+        <tbody id="pageTable">
+        {%if page_obj %}
+            {% for transfer in page_obj %}
+            <tr class="table-data">
+                <td>
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                </td>
+                <td>{{transfer.transaction_id}}</td>
+                <td>{{transfer.sender_agent}}</td>
+                <td>{{transfer.receiver_cu}}</td>
+                <td>{{transfer.sending_amount}}&nbsp;{{transfer.from_currency}}</td>
+                <td>{{transfer.receiving_amount}}&nbsp;{{transfer.to_currency}}</td>
+                <td>{{transfer.sending_date|date:"d/m/Y"}}</td>
+                <td>{{transfer.receiver_agent}}</td>
+                <td>{{transfer.sending_date|date:"d/m/Y"}}</td>
+                 {% if transfer.payment_status == 'processing'%}
+                    <td><span class="badge bg-warning text-white">{{transfer.payment_status}}</span></td>
+                 {% elif transfer.payment_status == 'delivered'%}
+                    <td><span class="badge bg-success">{{transfer.payment_status}}</span></td>
+                 {% elif transfer.payment_status == 'cancelled'%}
+                    <td><span class="badge bg-danger">{{transfer.payment_status}}</span></td>
+                 {% elif transfer.payment_status == 'sent'%}
+                    <td><span class="badge bg-success">{{transfer.payment_status}}</span></td>      
+                 {% endif %}  
+                <td class="action-option">
+                    <div class="dropdown">
+                    <span class="iconify dropdown-toggle" type="button" id="dropdownMenu2" data-bs-toggle="dropdown" aria-expanded="false" data-icon="bi:three-dots"></span>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                        <li>
+                        <a href="{% url 'transfer:view_transfer' transfer.id %}" class="dropdown-item">View</a>
+                        </li>
+                        <li>
+                        </li>
+                    </ul>
+                    </div>
+                </td>
+            </tr>
+            {% endfor %}
+            {% else %}
+                <tr>
+                <td>No Record Found </td>
+                </tr>
+            {% endif %}
+        </tbody>
+        </table>
+    </div>
+    <!-- table-responsive -->
+    <div class="table-pagination">
+      <nav aria-label="Page navigation example">
+        <ul class="pagination">
+         {% if page_obj.has_previous %}
+            <li class="page-item"> <a class="page-link" href="?page={{ page_obj.previous_page_number }}" tabindex="-1" aria-disabled="true">Previous</a> </li>
+         {% endif %}
+         {% for i in page_obj.paginator.page_range%}
+         {% if page_obj.number == i %}   
+            <li class="page-item"><a class="page-link" href="?page={{i}}">{{i}}</a></li>
+            {% elif i > page_obj.number|add:'-3' and i < page_obj.number|add:'1' %}
+               <li class="page-item"><a class="page-link" href="?page={{i}}">{{i}}</a></li>
+            {% endif %}         
+            {% endfor %} 
+            {% if page_obj.paginator.num_pages > page_obj.number|add:'1' %}
+               <li><a href="?page={{ page_obj.number|add:'1' }}"></a></li>
+            {% endif %}  
+         {% if page_obj.has_next %}   
+            <li class="page-item"> <a class="page-link" href="?page={{ page_obj.next_page_number }}">Next&hellip;</a> </li>
+         {% endif %}      
+         </ul>
+      </nav>
+   </div>
+    </div>
+</div>
+</div>
+{% endblock%}
+ {%block js%}
+<script>
+{% for msg in messages %}
+ 
+Swal.fire(
+  'Good job!',
+  '{{msg}}',
+  'success'
+)
+{% endfor %}
+</script>
+{% endblock %}

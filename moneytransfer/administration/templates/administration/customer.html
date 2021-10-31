@@ -1,0 +1,217 @@
+{% extends 'base/base.html' %}
+
+{% load static %}
+
+{%block title %}customer{%endblock%}
+
+{% load widget_tweaks %}
+
+{% block breadcrumbs %}
+
+<li><i class="iconify" data-icon="eva:arrow-ios-forward-fill"></i><span>Customer</span></li>
+
+{% endblock %}
+
+{% block breadcrumbsbtn %} 
+
+   <a href="#" class="">
+      <button type="btn" class="btn bordered-btn">Download File</button>
+   </a>
+   <a href="#">
+      <div class="file-upload ">
+         <label for="upload" class="file-upload__label">Bulk Upload</label>
+         <input id="upload" class="file-upload__input" type="file" name="file-upload">
+      </div>
+   </a>
+   <a href="{% url 'administration:add-new-customer'%}" class="">
+      <button type="btn" class="btn bordered-btn">Add New Customer</button>
+   </a>
+
+{% endblock %}
+
+
+{% block content %}
+<div class="row row-sm mg-b-20">
+   <div class="col-sm-12 col-lg-12">
+      <div class="card card-table-one">
+         <div class="main-title">
+            <h6 class="card-title">Customer</h6>
+            <!-- filter-mobile-view Start-->
+            <div class="filter-mobile-view">
+               <button class="btn filter-btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasBottom" aria-controls="offcanvasBottom"><span class="iconify" data-icon="system-uicons:filtering"></span>Filter</button>
+               <div class="offcanvas offcanvas-bottom" tabindex="-1" id="offcanvasBottom" aria-labelledby="offcanvasBottomLabel">
+                  <div class="offcanvas-header">
+                     <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                  </div>
+                  <div class="offcanvas-body small">
+                     <form method="get">
+               <div class="row">
+                  <div class="col-md-6 mb-3 col-xl-3 col-sm-12">
+                     <label for="exampleDataList" class="form-label">Search By Usern   ame</label>
+                        {% render_field filter.form.username class="form-control" %}
+                  </div>
+                  <div class="col-md-6 mb-3 col-xl-3 col-sm-12">
+                     <label for="exampleDataList" class="form-label">Search By Nationality</label>
+                       {% render_field filter.form.nationality class="form-control" %}
+                  </div>
+                  <div class="col-md-6 mb-3 col-xl-3 col-sm-12">
+                     <label for="exampleDataList2" class="form-label">Search By Location</label>
+                      {% render_field filter.form.country class="form-control" %}
+                  </div>
+                  <div class="col-md-6 mb-3 col-xl-3 col-sm-12">
+                     <div class="filter-field-btn">
+                        <button type="submit" class="btn new-add">Search</button>
+                        <a href="{% url 'administration:customer'%}" class="btn clear-btn" > Clear All </a>
+                     </div>
+                  </div>
+               </div>
+              </form>
+                  </div>
+               </div>
+            </div>
+            <!-- filter-mobile-view End-->
+         </div>
+         <hr />
+         <div class="filter-field">
+            <form method="get">
+               <div class="row">
+                  <div class="col-md-6 col-xl-3 col-sm-12">
+                     <label for="exampleDataList" class="form-label">Search By Username</label>
+                        {% render_field filter.form.username class="form-control" %}
+                  </div>
+                  <div class="col-md-6 col-xl-3 col-sm-12">
+                     <label for="exampleDataList" class="form-label">Search By Nationality</label>
+                       {% render_field filter.form.nationality class="form-control select" %}
+                  </div>
+                  <div class="col-md-6 col-xl-3 col-sm-12">
+                     <label for="exampleDataList2" class="form-label">Search By Location</label>
+                      {% render_field filter.form.country class="form-control select" %}
+                  </div>
+                  <div class="col-md-6 col-xl-3 col-sm-12">
+                     <div class="filter-field-btn">
+                        <button type="submit" class="btn new-add">Search</button>
+                        <a href="{% url 'administration:customer'%}" class="btn clear-btn" > Clear All </a>
+                     </div>
+                  </div>
+               </div>
+              </form>
+         </div>
+         <!-- table-responsive -->
+      </div>
+   </div>
+</div>
+<div class="new-card mt-4">
+   <div class="row">
+      {%if page_obj %}
+      {% for customer in page_obj  %}
+      <div class="col-sm-12 col-md-6 col-xl-4">
+         <div class="card" id="card">
+            <div class="card-body">
+               <div class="card-user">
+                  <div class="user-info">
+                     <div class="user-info__img">
+                        <img src="{%static 'image/user.png'%}" alt="customer">
+                     </div>
+                     <div class="user-info__basic">
+                        <h5 class="mb-6">{{customer.first_name}}&nbsp;{{customer.last_name}}</h5>
+                        <p class="text-muted mb-10">
+                        Username : <span>{{customer.username}}</span>
+                        </p>
+                     </div>
+                  </div>
+                  <div class="dropdown">
+                     <span class="iconify dropdown-toggle" type="button" id="dropdownMenu2" data-bs-toggle="dropdown" aria-expanded="false" data-icon="bi:three-dots"></span>
+                     <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                        <li>
+                           <a href="{% url 'administration:view_customer' customer.id %}" class="dropdown-item">View</a>
+                        </li>
+                     </ul>
+                  </div>
+               </div>
+               <div class="agent-contact">
+                  <div>
+                     <p>Country</p>
+                     <h6>{{customer.country}}</h6>
+                  </div>
+                  <div class="card-action">
+                     <p>Nationality</p>
+                     <h6>{{customer.nationality}}</h6>
+                  </div>
+               </div>  
+               <div class="agent-contact-status">
+                  <div>
+                    <p>Mobile Number</p>
+                     <h6>{{customer.mobile_no}}</h6>
+                  </div>
+                   {% if customer.status == 'Inactive' %}
+                  <div class="card-action">
+                     <p>Status</p>
+                     <span class="badge bg-danger">{{customer.status}}</span>
+                  </div>
+                  {% elif customer.status == 'Active' %}
+                  <div class="card-action">
+                     <p>Status</p>
+                     <span class="badge bg-success">{{customer.status}}</span>
+                  </div>
+                  {% endif %} 
+               </div>
+            </div>
+         </div>     
+      </div>
+   {% endfor %}
+   {% else %}
+      <tr>
+      <td>No Record Found </td>
+      </tr>
+   {% endif %}  
+   </div>
+   <div class="card-pagination">
+      <nav aria-label="Page navigation example">
+         <ul class="pagination">
+         {% if page_obj.has_previous %}
+            <li class="page-item"> <a class="page-link" href="?page={{ page_obj.previous_page_number }}" tabindex="-1" aria-disabled="true">Previous</a> </li>
+         {% endif %}
+         {% for i in page_obj.paginator.page_range%}
+         {% if page_obj.number == i %}   
+            <li class="page-item"><a class="page-link" href="?page={{i}}">{{i}}</a></li>
+            {% elif i > page_obj.number|add:'-3' and i < page_obj.number|add:'1' %}
+               <li class="page-item"><a class="page-link" href="?page={{i}}">{{i}}</a></li>
+            {% endif %}         
+            {% endfor %} 
+            {% if page_obj.paginator.num_pages > page_obj.number|add:'1' %}
+               <li><a href="?page={{ page_obj.number|add:'1' }}"></a></li>
+            {% endif %}  
+         {% if page_obj.has_next %}   
+            <li class="page-item"> <a class="page-link" href="?page={{ page_obj.next_page_number }}">Next&hellip;</a> </li>
+         {% endif %}      
+         </ul>
+      </nav>
+   </div>
+</div>
+{% endblock%}
+{%block js%}
+<script>
+   $(function(){
+      'use strict'
+      $(document).ready(function(){
+         $('.select').select2({
+         placeholder: 'Select',
+         });
+        
+         $('.lazyselect').select2({
+         placeholder: 'Select',
+         });
+      });
+   });
+</script>
+<script>
+{% for msg in messages %}
+ 
+Swal.fire(
+  'Good job!',
+  '{{msg}}',
+  'success'
+)
+{% endfor %}
+</script>
+{% endblock %}

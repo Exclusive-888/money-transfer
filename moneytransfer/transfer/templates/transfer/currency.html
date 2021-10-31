@@ -1,0 +1,4 @@
+<option value="" selected="" data-select2-id="18">---------</option>
+{% for rate in rates %}
+<option value="{{ rate.to_currency}}">{{ rate.to_currency}}</option>
+{% endfor %}

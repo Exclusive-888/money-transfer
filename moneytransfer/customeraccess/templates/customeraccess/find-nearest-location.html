@@ -1,0 +1,311 @@
+{% extends 'base/customer-base.html' %}
+
+{% load crispy_forms_tags %}
+{% load static%}
+{%block title %} New Receiver {%endblock%}
+
+{% comment %} {% block breadcrumbs %}
+
+   <li><a href="{% url 'customeraccess:my_receiver' %}"><i class="iconify" data-icon="eva:arrow-ios-forward-fill"></i><span> My Receivers </span></a></li>
+   <li><i class="iconify" data-icon="eva:arrow-ios-forward-fill"></i><span>Add New Receiver</span></a></li> 
+
+{% endblock %}
+
+   {% block breadcrumbsbtn %} 
+
+      <button form="id-receiverform" type="submit" class="btn new-add">Save</button>
+      <button form="id-receiverform" type="reset" class="btn clear-btn">Reset</button>
+
+   {% endblock %} {% endcomment %}
+
+{% block content %} 
+
+   <div class="">
+   <div class="row" >
+      <div class="col-md-12 col-sm-12">
+         <div class="card">
+            <div class="card-body">
+               <div class="faq-list">
+                  <h6 class="card-title">All Agent Location</h6>
+                  <hr>
+                  <div class="store-locaton">
+                     <div class="agent-location">
+                        <img src="{%static 'image/india.png'%}" class="img-fluid" alt="India">
+                        <p> Surat, Gujarat 395004, India</p>
+                     </div>
+                     <div class="sort">
+                        <div class="dropdown ">
+                           <a class="btn new-add" href="#" id="dropdownMenuButton3" data-bs-toggle="dropdown" aria-expanded="false">
+                           <span class="iconify" data-icon="bi:filter-circle"></span> Filter
+                           </a>
+                           <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton3">
+                              <li><a class="dropdown-item" href="#">Pay a Bill</a></li>
+                              <li><a class="dropdown-item" href="#">Send</a></li>
+                              <li><a class="dropdown-item" href="#">Receive</a></li>
+                           </ul>
+                        </div>
+                        <div class="dropdown">
+                           <a class="btn new-add new-sort" href="#" id="dropdownMenuButton3" data-bs-toggle="dropdown" aria-expanded="false"> <span class="iconify" data-icon="bi:sort-alpha-up"></span> Sort By </a>
+                           <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton3">
+                              <li><a class="dropdown-item" href="#">Distance</a></li>
+                              <li><a class="dropdown-item" href="#">A-Z</a></li>
+                           </ul>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="row mb-3">
+                     <div class="col-md-12">
+                        <div class="location-place-list">
+                           <div class="admin-profile">
+                              <div class="row">
+                                 <div class="col-md-3">
+                                    <div class="profile-detail">
+                                       <div class="profile-pic">
+                                          <img src="{%static 'image/admin-pic.png'%}" alt="Admin">
+                                       </div>
+                                       <div class="admin-detail">
+                                          <p>Agent</p>
+                                          <h5>Mohammed Ahmed</h5>
+                                       </div>
+                                    </div>
+                                 </div>
+                                 <div class="col-md-3">
+                                    <div class="profile-detail">
+                                       <div class="profile-pic">
+                                          <ul>
+                                             <li><a href="mailto:wakel252@hotmail.com"><span class="iconify" data-icon="line-md:email-opened"></span> wakel252@hotmail.com</a></li>
+                                             <li><a href="tel:+44 900007477"> <span class="iconify" data-icon="fluent:call-32-regular"></span> +91-261-2512300</a></li>
+                                          </ul>
+                                       </div>
+                                       <div class="admin-detail">
+                                       </div>
+                                    </div>
+                                 </div>
+                                 <div class="col-md-3">
+                                    <div class="profile-pic">
+                                       <ul>
+                                          <li>
+                                             <a href="#">
+                                             <span class="iconify" data-icon="carbon:location"></span>
+                                             </a> 
+                                             179 Johnston StFitzroy VIC 3065
+                                          </li>
+                                          <li>
+                                             <a href="view-agent.html">
+                                             <button type="btn" class="btn new-add reset-pass"> View Detail</button>
+                                             </a>
+                                          </li>
+                                       </ul>
+                                    </div>
+                                 </div>
+                                 <div class="col-md-3">
+                                    <div class="map">
+                                       <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d14878.214462088203!2d72.8179409!3d21.209884549999998!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sin!4v1630987718062!5m2!1sen!2sin" width="80%" height="150" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="row mb-3">
+                     <div class="col-md-12">
+                        <div class="location-place-list">
+                           <div class="admin-profile">
+                              <div class="row">
+                                 <div class="col-md-3">
+                                    <div class="profile-detail">
+                                       <div class="profile-pic">
+                                          <img src="{%static 'image/admin-pic2.png'%}" alt="Admin">
+                                       </div>
+                                       <div class="admin-detail">
+                                          <p>Agent</p>
+                                          <h5>Jessica</h5>
+                                       </div>
+                                    </div>
+                                 </div>
+                                 <div class="col-md-3">
+                                    <div class="profile-detail">
+                                       <div class="profile-pic">
+                                          <ul>
+                                             <li><a href="mailto:wakel252@hotmail.com"><span class="iconify" data-icon="line-md:email-opened"></span> help@helpscout .com</a></li>
+                                             <li><a href="tel:+44 900007477"> <span class="iconify" data-icon="fluent:call-32-regular"></span> +91-261-2512600</a></li>
+                                          </ul>
+                                       </div>
+                                       <div class="admin-detail">
+                                       </div>
+                                    </div>
+                                 </div>
+                                 <div class="col-md-3">
+                                    <div class="profile-pic">
+                                       <ul>
+                                          <li>
+                                             <a href="#">
+                                             <span class="iconify" data-icon="carbon:location"></span>
+                                             </a> 
+                                             100 City Hall Plaza, Adajan, Surat
+                                          </li>
+                                          <li>
+                                             <a href="view-agent.html">
+                                             <button type="btn" class="btn new-add reset-pass"> View Detail</button>
+                                             </a>
+                                          </li>
+                                       </ul>
+                                    </div>
+                                 </div>
+                                 <div class="col-md-3">
+                                    <div class="map">
+                                       <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d14878.214462088203!2d72.8179409!3d21.209884549999998!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sin!4v1630987718062!5m2!1sen!2sin" width="80%" height="150" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="row mb-3">
+                     <div class="col-md-12">
+                        <div class="location-place-list">
+                           <div class="admin-profile">
+                              <div class="row">
+                                 <div class="col-md-3">
+                                    <div class="profile-detail">
+                                       <div class="profile-pic">
+                                          <img src="{%static 'image/admin-pic3.png'%}" alt="Admin">
+                                       </div>
+                                       <div class="admin-detail">
+                                          <p>Agent</p>
+                                          <h5>Tress Wexler</h5>
+                                       </div>
+                                    </div>
+                                 </div>
+                                 <div class="col-md-3">
+                                    <div class="profile-detail">
+                                       <div class="profile-pic">
+                                          <ul>
+                                             <li><a href="mailto:wakel252@hotmail.com"><span class="iconify" data-icon="line-md:email-opened"></span> wexlertress@hotmail.com</a></li>
+                                             <li><a href="tel:+44 900007477"> <span class="iconify" data-icon="fluent:call-32-regular"></span> +91-261-2512300</a></li>
+                                          </ul>
+                                       </div>
+                                       <div class="admin-detail">
+                                       </div>
+                                    </div>
+                                 </div>
+                                 <div class="col-md-3">
+                                    <div class="profile-pic">
+                                       <ul>
+                                          <li>
+                                             <a href="#">
+                                             <span class="iconify" data-icon="carbon:location"></span>
+                                             </a> 
+                                             184 Johnston StFitzroy VIC 3065
+                                          </li>
+                                          <li>
+                                             <a href="view-agent.html">
+                                             <button type="btn" class="btn new-add reset-pass"> View Detail</button>
+                                             </a>
+                                          </li>
+                                       </ul>
+                                    </div>
+                                 </div>
+                                 <div class="col-md-3">
+                                    <div class="map">
+                                       <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d14878.214462088203!2d72.8179409!3d21.209884549999998!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sin!4v1630987718062!5m2!1sen!2sin" width="80%" height="150" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="row mb-3">
+                     <div class="col-md-12">
+                        <div class="location-place-list">
+                           <div class="admin-profile">
+                              <div class="row">
+                                 <div class="col-md-3">
+                                    <div class="profile-detail">
+                                       <div class="profile-pic">
+                                          <img src="{%static 'image/admin-pic4.png'%}" alt="Admin">
+                                       </div>
+                                       <div class="admin-detail">
+                                          <p>Agent</p>
+                                          <h5>Steven Johnson</h5>
+                                       </div>
+                                    </div>
+                                 </div>
+                                 <div class="col-md-3">
+                                    <div class="profile-detail">
+                                       <div class="profile-pic">
+                                          <ul>
+                                             <li><a href="mailto:wakel252@hotmail.com"><span class="iconify" data-icon="line-md:email-opened"></span> jennisims@example.com</a></li>
+                                             <li><a href="tel:+44 900007477"> <span class="iconify" data-icon="fluent:call-32-regular"></span> +91-261-2512550</a></li>
+                                          </ul>
+                                       </div>
+                                       <div class="admin-detail">
+                                       </div>
+                                    </div>
+                                 </div>
+                                 <div class="col-md-3">
+                                    <div class="profile-pic">
+                                       <ul>
+                                          <li>
+                                             <a href="#">
+                                             <span class="iconify" data-icon="carbon:location"></span>
+                                             </a> 
+                                             4850 Edgewood Road,Washington
+                                          </li>
+                                          <li>
+                                             <a href="view-agent.html">
+                                             <button type="btn" class="btn new-add reset-pass"> View Detail</button>
+                                             </a>
+                                          </li>
+                                       </ul>
+                                    </div>
+                                 </div>
+                                 <div class="col-md-3">
+                                    <div class="map">
+                                       <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d14878.214462088203!2d72.8179409!3d21.209884549999998!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sin!4v1630987718062!5m2!1sen!2sin" width="80%" height="150" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="table-pagination mt-3">
+                     <div class="item-per-page">
+                     </div>
+                     <nav aria-label="Page navigation example">
+                        <ul class="pagination">
+                           <li class="page-item">
+                              <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+                           </li>
+                           <li class="page-item">
+                              <a class="page-link" href="#">1</a>
+                           </li>
+                           <li class="page-item">
+                              <a class="page-link" href="#">2</a>
+                           </li>
+                           <li class="page-item">
+                              <a class="page-link" href="#">3</a>
+                           </li>
+                           <li class="page-item">
+                              <a class="page-link" href="#">Next</a>
+                           </li>
+                        </ul>
+                     </nav>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+
+{% endblock%}
+
+{%block js%}
+
+{% endblock %}
+ 

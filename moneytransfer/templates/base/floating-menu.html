@@ -1,0 +1,39 @@
+{% load static %}
+
+<div class="mobile-floting-menu">
+    <div id="mySidenav" class="sidenav">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <a href="{% url 'administration:dashboard'%}">Dashboard</a>
+        <a href="{% url 'administration:agent'%}">Agent</a>
+        <a href="{% url 'administration:customer'%}">Customer</a>
+        <a href="{% url 'transfer:money_transfer'%}">Money Transfer</a>
+        <a href="{% url 'transfer:debt_transfer'%}">Debt Money Transfer</a>
+        <a href="{% url 'exchange:money_exchange'%}">Money Exchange</a>
+        <a href="{% url 'administration:customer_bank' %}">Customer Bank</a>
+        <a href="{% url 'administration:agent_bank' %}">Agent Bank</a>
+        <a href="{% url 'administration:currency'%}">Currency</a>
+        <a href="{% url 'administration:reason'%}">Reasons For Sending</a>
+        <a href="">Reports</a>
+        </div>
+        <div class="mobile-menu" >
+        <ul>
+            <li>
+                <a> <span class="iconify" data-icon="ci:menu-alt-03" style="font-size:24px;cursor:pointer" onclick="openNav()"></span></a>
+                <p>menu</p>
+            </li>
+            <li>
+                <a href="faq.html">
+                <span class="iconify" data-icon="ant-design:question-circle-outlined"></span>
+                <p>FAQ's</p>
+                </a>
+            </li>
+            <!-- <li><a href="#"><span class="iconify" data-icon="ant-design:user-outlined"></span><p>Admin</p></a></li> -->
+            <li>
+                <a href="{% url 'administration:dashboard'%}">
+                <span  class="iconify" data-icon="bx:bx-home-alt"></span>
+                <p>Home</p>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>            

@@ -1,0 +1,75 @@
+{% extends 'base/customer-base.html' %}
+
+{% load crispy_forms_tags %}
+
+{%block title %} New Receiver {%endblock%}
+
+{% comment %} {% block breadcrumbs %}
+
+   <li><a href="{% url 'customeraccess:my_receiver' %}"><i class="iconify" data-icon="eva:arrow-ios-forward-fill"></i><span> My Receivers </span></a></li>
+   <li><i class="iconify" data-icon="eva:arrow-ios-forward-fill"></i><span>Add New Receiver</span></a></li> 
+
+{% endblock %}
+
+   {% block breadcrumbsbtn %} 
+
+      <button form="id-receiverform" type="submit" class="btn new-add">Save</button>
+      <button form="id-receiverform" type="reset" class="btn clear-btn">Reset</button>
+
+   {% endblock %} {% endcomment %}
+
+{% block content %} 
+
+   <div class="">
+   <div class="row" >
+      <div class="col-md-12 col-sm-12">
+         <div class="card">
+            <div class="card-body">
+               <div class="faq-list">
+                  <h6 class="card-title">Find Nearest Agent</h6>
+                  <hr>
+                  <form>
+                     <div class="row">
+                        <div class="col-md-4">
+                           <div class="edit-profile-detail">
+                              <div class="">
+                                 <label for="country" class="form-label">Search country<sup>*</sup></label>
+                                 <select class="form-select form-control" aria-label="country">
+                                    <option selected value="India">India </option>
+                                    <option value="USA">USA</option>
+                                    <option value="SUDAN">SUDAN</option>
+                                 </select>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="col-md-4">
+                           <div class="edit-profile-detail">
+                              <div class="">
+                                 <label for="Postal" class="form-label">Postal Code <sup>*</sup></label>
+                                 <input type="text" class="form-control" id="Postal" placeholder="Enter Postal">
+                              </div>
+                           </div>
+                        </div>
+                        <div class="col-md-4">
+                           <div class="edit-profile-detail">
+                              <div class="filter-field-btn">
+                              <a href="{% url 'customeraccess:agent_location' %}" type="btn" class="btn new-add">
+                                 Find Agent
+                              </a>
+                           </div>
+                        </div>
+                     </div>
+                  </form>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+
+{% endblock%}
+
+{%block js%}
+
+{% endblock %}
+ 

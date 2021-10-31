@@ -1,0 +1,171 @@
+{% extends 'base/base.html' %}
+{% load crispy_forms_tags %}
+{% load widget_tweaks %}
+
+{%block title %}Debt Money Transfer{%endblock%}
+
+{% block breadcrumbs %}
+
+<li><i class="iconify" data-icon="eva:arrow-ios-forward-fill"></i><span>Debt Money Transfer</span></li>
+
+{% endblock %}
+
+{% block content %} 
+<div class="row row-sm mg-b-20">
+                  <div class="col-sm-12 col-lg-12">
+                     <div class="card card-table-one">
+                        <div class="main-title">
+                           <h6 class="card-title"> Debt Money Transfer</h6>
+                           <!-- filter-mobile-view Start-->
+                           <div class="filter-mobile-view">
+                            <form method="get">
+                              <button class="btn filter-btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasBottom" aria-controls="offcanvasBottom"><span class="iconify" data-icon="system-uicons:filtering"></span>Filter</button>
+                              <div class="offcanvas offcanvas-bottom" tabindex="-1" id="offcanvasBottom" aria-labelledby="offcanvasBottomLabel">
+                                 <div class="offcanvas-header">
+                                    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                                 </div>
+                                 <div class="offcanvas-body small">
+                                    <div class="row">
+                                       <div class="col-md-6 col-xl-3 col-sm-12 mb-3">
+                                 <label for="exampleDataList" class="form-label">Search By Agent</label>
+                                            {% render_field filter.form.sender_agent class="form-control " %}
+                                       </div>
+                                       <div class="col-md-6 col-xl-3 col-sm-12 mb-3">
+                                 <label for="exampleDataList" class="form-label">Search By Customer</label>
+                                      {% render_field filter.form.sender_cu class="form-control" %}                 
+
+                                       </div>
+                                       <div class="col-md-6 col-xl-3 col-sm-12 mb-3">
+                                          <label for="exampleDataList" class="form-label">Search By Outstanding Amount</label>
+                                               {% render_field filter.form.outstanding_amount class="form-control " %}
+
+                                       </div>
+                                       <div class="col-md-6 col-xl-3 col-sm-12">
+                                          <div class="filter-field-btn">
+                                             <button type="submit" class="btn new-add">Search</button>
+                                             <a href="{% url 'transfer:money_transfer'%}" class="btn clear-btn" > Clear All </a>
+                                          </div>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </div>
+                              </form>
+                           </div>
+                           <!-- filter-mobile-view End-->
+                        </div>
+                        <hr />
+                        <div class="filter-field">
+                         <form method="get">
+                           <div class="row">
+                              <div class="col-md-6 col-xl-3 col-sm-12">
+                                 <label for="exampleDataList" class="form-label">Search By Agent</label>
+                                            {% render_field filter.form.sender_agent class="form-control select" %}
+                              </div>
+                              <div class="col-md-6 col-xl-3 col-sm-12">
+                                 <label for="exampleDataList" class="form-label">Search By Customer</label>
+                                      {% render_field filter.form.sender_cu class="form-control select" %}                 
+                              </div>
+                              <div class="col-md-6 col-xl-3 col-sm-12">
+                                 <label for="exampleDataList" class="form-label">Search By Outstanding Amount</label>
+                                                                             {% render_field filter.form.outstanding_amount class="form-control" %}
+
+                              </div>
+                             <div class="col-md-6 col-xl-3 col-sm-12">
+                                 <div class="filter-field-btn">
+                                    <button type="submit" class="btn new-add">Search</button>
+                                    <a href="{% url 'transfer:debt_transfer'%}" class="btn clear-btn" > Clear All </a>
+                                 </div>
+                              </div>
+                           </div>
+                          </form> 
+                        </div>
+                        <div class="table-responsive">
+                           <table class="table table-hover mg-b-0">
+                              <thead>
+                                 <tr>
+                                    <th>
+                                       <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                    </th>
+                                    <th>ID</th>
+                                    <th>Receiver</th>
+                                    <th>Sender</th>
+                                    <th>Sending Amount</th>
+                                    <th>Due Date</th>
+                                    <th>Ammount Paid</th>
+                                    <th>Outstanding Amount</th>
+                                    <th>Action</th>
+                                 </tr>
+                              </thead>
+                              <tbody id="pageTable">
+                           {%if page_obj %}
+                              {% for transfer in page_obj %}
+                              <tr class="table-data">
+                                    <td>
+                                       <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                    </td>
+                                    <td>{{transfer.debt_id}}</td>
+                                    <td>{{transfer.receiver_customer}}</td>
+                                    <td>{{transfer.sender_agent}}</td>
+                                    <td>{{transfer.sending_amount}}&nbsp;{{transfer.to_currency}}</td>
+                                    <td>{{transfer.due_date|date:"d/m/Y"}}</td>
+                                    <td>{{transfer.paid_amount}}</td>
+                                    <td>{{transfer.outstanding_amount}}</td>
+                                    <td class="action-option">
+                                       <div class="dropdown">
+                                       <span class="iconify dropdown-toggle" type="button" id="dropdownMenu2" data-bs-toggle="dropdown" aria-expanded="false" data-icon="bi:three-dots"></span>
+                                       <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                                          <li>
+                                          <a href="{% url 'transfer:view_debt' transfer.id %}" class="dropdown-item">View</a>
+                                          </li>
+                                       </ul>
+                                       </div>
+                                    </td>
+                              </tr>
+                              {% endfor %}
+                              {% else %}
+                                    <tr>
+                                    <td>No Record Found </td>
+                                    </tr>
+                              {% endif %}
+                           </tbody>  
+                           </table>
+                        </div>
+                        <!-- table-responsive -->
+                        <div class="table-pagination">
+                           <nav aria-label="Page navigation example">
+                           <ul class="pagination">
+                              {% if page_obj.has_previous %}
+                                 <li class="page-item"> <a class="page-link" href="?page={{ page_obj.previous_page_number }}" tabindex="-1" aria-disabled="true">Previous</a> </li>
+                              {% endif %}
+                              {% for i in page_obj.paginator.page_range%}
+                              {% if page_obj.number == i %}   
+                                 <li class="page-item"><a class="page-link" href="?page={{i}}">{{i}}</a></li>
+                                 {% elif i > page_obj.number|add:'-3' and i < page_obj.number|add:'1' %}
+                                    <li class="page-item"><a class="page-link" href="?page={{i}}">{{i}}</a></li>
+                                 {% endif %}         
+                                 {% endfor %} 
+                                 {% if page_obj.paginator.num_pages > page_obj.number|add:'1' %}
+                                    <li><a href="?page={{ page_obj.number|add:'1' }}"></a></li>
+                                 {% endif %}  
+                              {% if page_obj.has_next %}   
+                                 <li class="page-item"> <a class="page-link" href="?page={{ page_obj.next_page_number }}">Next&hellip;</a> </li>
+                              {% endif %}      
+                              </ul>
+                           </nav>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+{% endblock%}
+ {%block js%}
+<script>
+{% for msg in messages %}
+ 
+Swal.fire(
+  'Good job!',
+  '{{msg}}',
+  'success'
+)
+{% endfor %}
+</script>
+{% endblock %}

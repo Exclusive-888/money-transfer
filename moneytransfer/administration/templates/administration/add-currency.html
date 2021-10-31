@@ -1,0 +1,90 @@
+{% extends 'base/base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% load static %}
+
+{%block title %}Currency{%endblock%}
+
+{% block breadcrumbs %}
+
+   <li><a href="{% url 'administration:currency' %}"><i class="iconify" data-icon="eva:arrow-ios-forward-fill"></i><span>Currency</span></a></li>
+   <li><i class="iconify" data-icon="eva:arrow-ios-forward-fill"></i><span>Add Currency</span></li>
+
+{% endblock %}
+
+{% block breadcrumbsbtn %} 
+
+   <button form="id-currencyform" type="submit" class="btn new-add">Save</button>
+   <button form="id-currencyform" type="reset" class="btn clear-btn">Reset</button>
+
+{% endblock %}
+
+{% block content %}  
+
+   <div class="row row-sm mg-b-20">
+      <div class="col-sm-12 col-lg-12">
+         <div class="card card-table-one">
+            <h6 class="card-title">Edit Currency</h6>
+            <hr>
+         <form class="" id="id-currencyform" method="post">
+            {% csrf_token %}
+            {% crispy form %}  
+         </form>     
+      </div>
+      </div>
+   </div>
+
+
+{% endblock%}
+
+{%block js%}
+<script>
+
+const c1 = document.getElementById("id_from_currency");
+const c2 = document.getElementById("id_to_currency");
+const market = document.getElementById("id_market_rate");
+
+// Fetch exchange rate from the API
+function calculate() {
+  const curr1 = c1.value;
+  const curr2 = c2.value;
+  fetch(
+    `https://v6.exchangerate-api.com/v6/de6c65152c310b0ab44aeda8/latest/${curr1}`
+    
+  )
+    .then((res) => res.json())
+    .then((data) => {
+      // console.log(data);
+      // Updating the data
+      const rate = data.conversion_rates[curr2];
+      market.value = (rate).toFixed(2);
+    });
+}
+
+// Event  Listeners
+c2.addEventListener("keyup", calculate);
+debugger
+c1.addEventListener("keyup", calculate);
+market.addEventListener("mousemove", calculate);
+market.addEventListener("keyup", calculate);
+market.addEventListener("change", calculate);
+calculate();
+
+</script>
+<script>
+$(document).ready(function() {
+    
+    $('.form-group').keyup(function () {
+        var market = parseFloat($('#id_market_rate').val());
+        var rate = parseFloat($('#id_our_rate').val());
+        var total = parseFloat($('#id_total_commission').val(market - rate));
+
+    });
+
+      
+});
+
+</script>
+
+{% endblock %}

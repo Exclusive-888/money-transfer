@@ -1,0 +1,89 @@
+ {% load static %}
+
+<script src="{% static 'js/jquery.js' %}"></script>
+<script src="{% static 'js/popper.min.js' %}" ></script>
+<script src="{% static 'js/bootstrap.js' %}"></script>
+<script src="{% static 'js/iconify.min.js' %}"></script>
+<script src="{% static 'js/script.js' %}"></script>
+<script src="{% static 'js/select2.min.js' %}"></script>
+<script>
+    function openNav() {
+      document.getElementById("mySidenav").style.width = "100%";
+    }
+    
+    function closeNav() {
+      document.getElementById("mySidenav").style.width = "0";
+    }
+
+    $(document).ready(function(){
+    $("#back-arrow-action").click(function(){
+    $("#sidebarMenu").addClass("important");
+    });
+    });
+
+    
+ {% comment %} $(document).ready(function(){
+ $('#search').keyup(function(){
+ 
+  // Search text
+  var text =   $(this).val();
+ 
+  // Hide all content class element
+
+  $('.content').hide();
+
+
+  // Search and show
+  $('.content:contains("'+text+'")').show();
+
+ });
+}); {% endcomment %}
+
+  $(".select").closest("form").on("reset",function(ev){
+  var targetJQForm = $(ev.target);
+  setTimeout((function(){
+      this.find(".select").trigger("change");
+  }).bind(targetJQForm),0);
+
+  });
+$("#id_country").closest("form").on("reset",function(ev){
+  var targetJQForm = $(ev.target);
+  setTimeout((function(){
+      this.find("#id_country").trigger("change");
+  }).bind(targetJQForm),0);
+
+  });
+  $(function(){
+      'use strict'
+      $(document).ready(function(){
+        $('.select').select2({
+        placeholder: 'Select',
+        });
+        $('').select2({
+        placeholder: 'Select',
+        });
+        $('.lazyselect').select2({
+        placeholder: 'Select',
+        });
+      });
+  });
+   
+</script>
+
+
+<script>
+$(document).ready(function(){
+  $("#search").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $("#pageTable tr").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+  });
+
+});
+
+
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+</script>

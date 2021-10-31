@@ -1,0 +1,215 @@
+{% extends 'base/base.html' %}
+
+{% load static %}
+
+{%block title %}View Money Transfer{%endblock%}
+
+{% block breadcrumbs %}
+
+<li><a href="{% url 'transfer:money_transfer' %}"><i class="iconify" data-icon="eva:arrow-ios-forward-fill"></i><span>Money Transfer</span></a></li>
+<li><i class="iconify" data-icon="eva:arrow-ios-forward-fill"></i><span>View Transfer</span></li>
+
+{% endblock %}
+
+{% block breadcrumbsbtn %} 
+
+{% for transfer in view_debt %} 
+   <a href="{% url 'transfer:edit_debt' transfer.id%}"><button type="btn" class="btn new-add">Edit</button></a>
+{% endfor %}
+
+{% endblock %}
+
+{% block content %}
+{%if view_debt %}
+{% for transfer in view_debt %} 
+<div class="row row-sm mg-b-20">
+    <div class="col-sm-12 col-lg-12">
+        <div class="card card-table-one">
+            <h6 class="card-title">Debt Money Transfer</h6>
+            <hr/>
+            <div class="view-agent">
+            <div class="row">
+                <div class="col-md-4 col-sm-12">
+                    <div class="border-right">
+                        <div class="row">
+                        <div class="col-md-4">
+                            <p> <span>ID :</span> </p>
+                        </div>
+                        <div class="col-md-8">
+                            <p>{{transfer.id}}</p>
+                        </div>
+                        </div>
+                        <div class="row">
+                        <div class="col-md-4">
+                            <p> <span>Sending Date :</span> </p>
+                        </div>
+                        <div class="col-md-8">
+                            <p>{{transfer.sending_date}}</p>
+                        </div>
+                        </div>
+                        <div class="row">
+                        <div class="col-md-4">
+                            <p> <span>Receiving Date :</span> </p>
+                        </div>
+                        <div class="col-md-8">
+                            <p></p>
+                        </div>
+                        </div>
+                        <div class="row">
+                        <div class="col-md-4">
+                            <p> <span>Money Sending Method :</span> </p>
+                        </div>
+                        <div class="col-md-8">
+                            <p>{{transfer.send_method}}</p>
+                        </div>
+                        </div>
+                        <div class="row">
+                        <div class="col-md-4">
+                            <p> <span>Money Receiving Method :</span> </p>
+                        </div>
+                        <div class="col-md-8">
+                            <p>{{transfer.receive_method}}</p>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-12">
+                    <div class="border-right">
+                        <div class="row">
+                        <div class="col-md-4">
+                            <p> <span>Sender :</span> </p>
+                        </div>
+                        <div class="col-md-8">
+                            <p>{{transfer.sender_agent}}</p>
+                        </div>
+                        </div>
+                        <div class="row">
+                        <div class="col-md-4">
+                            <p> <span>Sender Agent :</span> </p>
+                        </div>
+                        <div class="col-md-8">
+                            <p>{{transfer.sender_agent}}</p>
+                        </div>
+                        </div>
+                        <div class="row">
+                        <div class="col-md-4">
+                            <p> <span>Receiver Account :</span> </p>
+                        </div>
+                        <div class="col-md-8">
+                            <p>---</p>
+                        </div>
+                        </div>
+                        <div class="row">
+                        <div class="col-md-4">
+                            <p> <span>Sending Currency :</span> </p>
+                        </div>
+                        <div class="col-md-8">
+                            <p>{{transfer.sending_currency}}</p>
+                        </div>
+                        </div>
+                        <div class="row">
+                        <div class="col-md-4">
+                            <p> <span>Receiving Amount :</span> </p>
+                        </div>
+                        <div class="col-md-8">
+                            <p>{{transfer.receiving_currency}}</p>
+                        </div>
+                        </div>
+                        <div class="row">
+                        <div class="col-md-4">
+                            <p> <span>Reason For Sending :</span> </p>
+                        </div>
+                        <div class="col-md-8">
+                            <p>{{transfer.reason_type}}</p>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-12">
+                    <div class="border-right">
+                        <div class="row">
+                        <div class="col-md-4">
+                            <p> <span>Receiver :</span> </p>
+                        </div>
+                        <div class="col-md-8">
+                            <p>{{transfer.receiver_cu}}</p>
+                        </div>
+                        </div>
+                        <div class="row">
+                        <div class="col-md-4">
+                            <p> <span>Exchange Rate :</span> </p>
+                        </div>
+                        <div class="col-md-8">
+                            <p>{{transfer.exchange_rate}}</p>
+                        </div>
+                        </div>
+                        <div class="row">
+                        <div class="col-md-4">
+                            <p> <span>Transfer Fee :</span> </p>
+                        </div>
+                        <div class="col-md-8">
+                            <p>{{transfer.transfer_rate}}</p>
+                        </div>
+                        </div>
+                        <div class="row">
+                        <div class="col-md-4">
+                            <p> <span>Total Payment :</span> </p>
+                        </div>
+                        <div class="col-md-8">
+                            <p>{{transfer.total_payment}}</p>
+                        </div>
+                        </div>
+                        <div class="row">
+                        <div class="col-md-4">
+                            <p> <span>Amount Paid :</span> </p>
+                        </div>
+                        <div class="col-md-8">
+                            <p>{{transfer.paid_amount}}</p>
+                        </div>
+                        </div>
+                        <div class="row">
+                        <div class="col-md-4">
+                            <p> <span>Payment Status:</span> </p>
+                        </div>
+                        <div class="col-md-8">
+                            <p>{{transfer.payment_status}}</p>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+            <h6 class="card-title card-title-profile2">Debts Detail</h6>
+            <hr />
+            <div class="view-agent">
+            <div class="row">
+                <div class="col-md-6 col-sm-12">
+                    <div class="border-right">
+                        <div class="row">
+                        <div class="col-md-4">
+                            <p> <span>Amount :</span> </p>
+                        </div>
+                        <div class="col-md-8">
+                            <p>{{transfer.paid_amount}}</p>
+                        </div>
+                        </div>
+                        <div class="row">
+                        <div class="col-md-4">
+                            <p> <span>Date :</span> </p>
+                        </div>
+                        <div class="col-md-8">
+                            <p>{{transfer.due_date}}</p>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endfor %}
+{% else %}
+<p>No Record Found</p>  
+{% endif %}
+{% endblock%}

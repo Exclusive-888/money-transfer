@@ -1,0 +1,88 @@
+{% extends 'base/customer-base.html' %}
+
+{% load crispy_forms_tags %}
+
+{%block title %} New Receiver {%endblock%}
+
+{% comment %} {% block breadcrumbs %}
+
+   <li><a href="{% url 'customeraccess:my_receiver' %}"><i class="iconify" data-icon="eva:arrow-ios-forward-fill"></i><span> My Receivers </span></a></li>
+   <li><i class="iconify" data-icon="eva:arrow-ios-forward-fill"></i><span>Add New Receiver</span></a></li> 
+
+{% endblock %}
+
+   {% block breadcrumbsbtn %} 
+
+      <button form="id-receiverform" type="submit" class="btn new-add">Save</button>
+      <button form="id-receiverform" type="reset" class="btn clear-btn">Reset</button>
+
+   {% endblock %} {% endcomment %}
+
+{% block content %} 
+<div class="row ">
+    <div class="col-sm-12 col-lg-12">
+        <div class="card">
+        <h6 class="card-title">Tracking Detail</h6>
+        <hr>
+        <div class="progressbar-wrapper">
+            <ul class="progressbar">
+                <li class="active"><span>Money Sent</span></li>
+                <li class="active"><span>Processing</span></li>
+                <li class="active"><span>Available</span></li>
+                <li class=""><span>Money Received</span></li>
+            </ul>
+        </div>
+        <div class="transfer-detail">
+            <div class="row">
+                <div class="col-md-4 col-sm-12">
+                    <div class="tracking-detail">
+                    <h6>Transfer ID</h6>
+                    <p>#85803078900</p>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-12">
+                    <div class="tracking-detail">
+                    <h6>Created on</h6>
+                    <p>01 Aug, 2021</p>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-12">
+                    <div class="tracking-detail">
+                    <h6>You Transfer</h6>
+                    <p>AUD 210.00</p>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 col-sm-12">
+                    <div class="tracking-detail">
+                    <h6>Transfer Fee</h6>
+                    <p>AUD 15.00</p>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-12">
+                    <div class="tracking-detail">
+                    <h6>Rate</h6>
+                    <p>AUD/GBP 0.6050</p>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-12">
+                    <div class="tracking-detail">
+                    <h6>Total Ammount</h6>
+                    <p>AUD 225.00</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock%}
+
+
+{%block js%}
+
+{% endblock %}
+ 

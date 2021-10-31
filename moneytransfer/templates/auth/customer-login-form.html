@@ -1,0 +1,79 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+   <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Welcome to Money Transfer </title>
+      <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+      <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet">
+      <link href="{% static 'css/style.css' %}" rel='stylesheet'>
+      <link rel="shortcut icon" type="image/png" href="{% static 'image/favicon.ico' %}" />
+   </head>
+   <body>
+      <div class="limiter">
+         <div class="container-login100">
+            <div class="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-50">
+               <div class="row">
+                  <div class="col-md-6 col-sm-12">
+                     <div class="login-img">
+                        <img src="{% static 'image/login2.png' %}" class="img-fluid" alt="Login">
+                     </div>
+                  </div>
+                  <div class="col-md-6 col-sm-12">
+               <form method="POST" action="">
+                {% csrf_token %}  
+                  <span class="login100-form-title p-b-33">
+                  Customer Login
+                  </span>
+                  <div class="edit-profile-detail">
+                   {% for message in messages %}
+                   <div class="alert alert-danger alert-dismissible fade show" role="alert">
+					         <p id="messages">{{message}}</p>
+                   </div>
+                     {% endfor %}
+                     <div class="form-group">
+                        <label for="conatct" class="form-label">Username<sup>*</sup></label>
+                        <input type="text" name="username" class="form-control" id="email" placeholder="example@email.com">
+                     </div>
+                  </div>
+                  <div class="edit-profile-detail">
+                     <div class="form-group">
+                        <label for="password" class="form-label">Password<sup>*</sup></label>
+                        <input type="password" name="password" class="form-control" value="Password">
+                     </div>
+                  </div>
+                  <div class="form-row d-flex justify-content-between mt-2 mb-4">
+                     <div class="form-group">
+                        <div class="custom-control custom-checkbox ml-1">
+                           <input type="checkbox" class="custom-control-input" id="basic_checkbox_1">
+                           <label class="custom-control-label" for="basic_checkbox_1">Remember my preference</label>
+                        </div>
+                     </div>
+                     <div class="form-group">
+                        <a href="admin-profile-forgot-password">Forgot Password?</a>
+                     </div>
+                  </div>
+                  <button class="login-form-btn btn new-add"> Sign in </button>	
+               </form>
+                
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <script src="{% static 'js/jquery.js' %}"></script>
+      <script src="{% static 'js/popper.min.js' %}" ></script>
+      <script src="{% static 'js/bootstrap.js' %}"></script>
+      <script src="{% static 'js/iconify.min.js' %}"></script>
+      <script src="{% static 'js/script.js'%}"></script>
+      <script></script>
+      <script>
+    window.onload = function() {
+    var duration = 3100; //2 seconds
+    setTimeout(function () { $('.alert').fadeOut('slow'); }, duration);
+     };
+      </script>
+   </body>
+</html>

@@ -1,0 +1,64 @@
+{% load static %}
+{% if  user.is_active %}
+<div class="sidebar">
+    <div class="logo-details">
+      <i><a href="{% url 'administration:my_dashboard'%}"><img src="{%static 'image/logo-6.png'%}"></a></i>
+    <div class="logo_name">Monye Transfer</div>
+    <i class='bx bx-menu' id="btn" ></i>
+    </div>
+    <ul class="nav-list">
+    <li>
+        <a href="{% url 'administration:my_dashboard'%}">
+        <i class='bx bx-grid-alt'></i>
+        <span class="links_name">Dashboard</span>
+        </a>
+        <span class="tooltip">Dashboard</span>
+    </li>
+    <li>
+        <a href="{% url 'customeraccess:make_transaction'%}">
+        <i class='bx'>
+        <span class="iconify" data-icon="carbon:send-alt"></span>
+        </i>
+        <span class="links_name">Send Money</span>
+        </a>
+        <span class="tooltip">Send Money</span>
+    </li>
+    <li>
+        <a href="{% url 'customeraccess:track_transfer'%}" >
+        <i class='bx'>
+        <span class="iconify" data-icon="clarity:truck-line"></span>
+        </i>
+        <span class="links_name">Track Transfer</span>
+        </a>
+        <span class="tooltip">Track Transfer</span>
+    </li>
+    <li>
+        <a href="{% url 'customeraccess:find_agent'%}">
+        <i class='bx'>
+        <span class="iconify" data-icon="ri:user-search-line"></span>
+        </i>
+        <span class="links_name">Find Nearest Agent</span>
+        </a>
+        <span class="tooltip">Find Nearest Agent</span>
+    </li>
+    <li>
+        <a href="{% url 'customeraccess:my_transaction'%}">
+        <i class='bx'>
+        <span class="iconify" data-icon="bi:clock-history"></span>
+        </i>
+        <span class="links_name">My Transaction</span>
+        </a>
+        <span class="tooltip">My Transaction</span>
+    </li>
+    <li>
+        <a href="{% url 'customeraccess:my_receiver'%}">
+        <i class='bx'>
+        <span class="iconify" data-icon="ph:users-three-light"></span>
+        </i>
+        <span class="links_name">My Receivers</span>
+        </a>
+        <span class="tooltip">My Receivers</span>
+    </li>
+    </ul>
+</div>
+{%endif%}

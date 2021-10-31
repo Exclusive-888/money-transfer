@@ -1,0 +1,325 @@
+{% extends 'base/customer-base.html' %}
+
+{% load static %}
+
+{% load widget_tweaks %}
+
+{%block title %} My Transactions {%endblock%}
+
+{% block breadcrumbs %}
+
+  <li><i class="iconify" data-icon="eva:arrow-ios-forward-fill"></i><span> My Transactions </span></li>
+
+{% endblock %}
+
+{% block breadcrumbsbtn %} 
+
+    {% comment %} <a href="{% url 'customeraccess:make_transaction' %}" > <button type="btn" class="btn new-add"> Make Money Transfer </button></a> {% endcomment %}
+
+{% endblock %}
+
+{% block content %}
+   
+<div class="row row-sm mg-b-20">
+   <div class="col-sm-12 col-lg-12">
+      <div class="card card-table-one">
+         <div class="main-title">
+            <h6 class="card-title">Transaction List</h6>
+            <!-- filter-mobile-view Start-->
+            <div class="filter-mobile-view">
+               <button class="btn filter-btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasBottom" aria-controls="offcanvasBottom"><span class="iconify" data-icon="system-uicons:filtering"></span>Filter</button>
+               <div class="offcanvas offcanvas-bottom" tabindex="-1" id="offcanvasBottom" aria-labelledby="offcanvasBottomLabel">
+                  <div class="offcanvas-header">
+                     <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                  </div>
+                  <div class="offcanvas-body small">
+                     <div class="row">
+                        <div class="col-md-6 col-xl-3 col-sm-12 mb-3">
+                           <label for="exampleDataList" class="form-label">Search By Name</label>
+                           
+                        </div>
+                        <div class="col-md-6 col-xl-3 col-sm-12 mb-3">
+                           <label for="exampleDataList" class="form-label">Search By Location</label>
+                           
+                        </div>
+                        <div class="col-md-6 col-xl-3 col-sm-12 mb-3">
+                           <label for="exampleDataList2" class="form-label">Search By Status</label>
+                           
+                        </div>
+                        <div class="col-md-6 col-xl-3 col-sm-12">
+                           <div class="filter-field-btn">
+                              <a href="#">
+                              <button type="btn" class="btn new-add">Search</button>
+                              </a>
+                              <a href="#">
+                              <button type="btn" class="btn clear-btn">Clear All</button>
+                              </a>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <!-- filter-mobile-view End-->
+         </div>
+         <hr />
+         <div class="filter-field">
+            <div class="row">
+               <div class="col-md-6 col-xl-5 col-sm-12">
+                  <div class="transaction-tabs">
+                     <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+                        <li class="nav-item" role="presentation">
+                           <button class="nav-link active" id="pills-transaction-tab" data-bs-toggle="pill" data-bs-target="#pills-transaction" type="button" role="tab" aria-controls="pills-transaction" aria-selected="true">All Transaction </button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                           <button class="nav-link" id="pills-completed-tab" data-bs-toggle="pill" data-bs-target="#pills-completed" type="button" role="tab" aria-controls="pills-completed" aria-selected="false">Ready To Collect</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                           <button class="nav-link" id="pills-pending-tab" data-bs-toggle="pill" data-bs-target="#pills-pending" type="button" role="tab" aria-controls="pills-pending" aria-selected="false">Received</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                           <button class="nav-link" id="pills-canceled-tab" data-bs-toggle="pill" data-bs-target="#pills-canceled" type="button" role="tab" aria-controls="pills-canceled" aria-selected="false">Cancelled</button>
+                        </li>
+                     </ul>
+                  </div>
+               </div>
+               <div class="col-md-6 col-xl-7 col-sm-12">
+               </div>
+               <div class="tab-content mb-3 mt-3" id="pills-tabContent">
+                  <div class="tab-pane fade show active" id="pills-transaction" role="tabpanel" aria-labelledby="pills-transaction-tab">
+                     <div class="table-responsive">
+                        <table class="table table-hover mg-b-0">
+                           <thead>
+                              <tr>
+                                 <th>
+                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                 </th>
+                                 <th>Transaction ID</th>
+                                 <th>Receiver</th>
+                                 <th>Total Ammount</th>
+                                 <th>From Currency</th>
+                                 <th>To Currency</th>
+                                 <th>Transaction Date</th>
+                                 <th>Transaction Status</th>
+                                 <th>Action</th>
+                              </tr>
+                           </thead>
+                           <tbody>
+                           {% if my_transaction%}
+                           {% for transaction in my_transaction %}
+                              <tr class="table-data">
+                                 <td>
+                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                 </td>
+                                 <td>{{transaction.transaction_id}}</td>
+                                 <td>{{transaction.receiver}}</td>
+                                 <td>{{transaction.total_amount}}</td>
+                                 <td>{{transaction.send_amount}}&nbsp;{{transaction.from_currency}}</td>
+                                 <td>{{transaction.receive_amount}}&nbsp;{{transaction.to_currency}}</td>
+                                 <td>{{transaction.transaction_date|date:"d/m/Y"}}</td>
+                                 {% if transaction.money_status == "Sent"%}
+                                 <td><span class="badge bg-success">{{transaction.money_status}}</span></td>
+                                 {% endif %}
+                                 {% if transaction.money_status == "Ready To Collect"%}
+                                 <td><span class="badge bg-warning text-white">{{transaction.money_status}}</span></td>
+                                 {% endif %}
+                                 {% if transaction.money_status == "Received"%}
+                                 <td><span class="badge bg-info text-white">{{transaction.money_status}}</span></td>
+                                 {% endif %}
+                                 {% if transaction.money_status == "Cancelled"%}
+                                 <td><span class="badge bg-danger text-white">{{transaction.money_status}}</span></td>
+                                 {% endif %}
+                                 <td class="action-option">
+                                    <div class="dropdown">
+                                       <span class="iconify dropdown-toggle" type="button" id="dropdownMenu2" data-bs-toggle="dropdown" aria-expanded="false" data-icon="bi:three-dots"></span>
+                                       <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                                          <li>
+                                             <a href="{% url 'customeraccess:view_transaction' transaction.id %}" class="dropdown-item">View</a>
+                                          </li>
+                                       </ul>
+                                    </div>
+                                 </td>
+                              </tr>
+                           {% endfor %}
+                           {% else %}
+                              <tr>
+                              <td>No Record Found </td>
+                              </tr>
+                           {% endif %}
+                           </tbody>
+                        </table>
+                     </div>
+                     <!-- table-responsive -->
+                  </div>
+                  <div class="tab-pane fade mb-3 mt-3" id="pills-completed" role="tabpanel" aria-labelledby="pills-completed-tab">
+                     <div class="table-responsive">
+                        <table class="table table-hover mg-b-0">
+                           <thead>
+                              <tr>
+                                 <th>
+                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                 </th>
+                                 <th>Transaction ID</th>
+                                 <th>Receiver</th>
+                                 <th>Total Ammount</th>
+                                 <th>From Currency</th>
+                                 <th>To Currency</th>
+                                 <th>Transaction Date</th>
+                                 <th>Transaction Status</th>
+                                 <th>Action</th>
+                              </tr>
+                           </thead>
+                           <tbody>
+                           {% for transaction in my_transaction %}
+                           {% if transaction.money_status == "Ready To Collect"%}
+                              <tr class="table-data">
+                                 <td>
+                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                 </td>
+                                 <td>{{transaction.transaction_id}}</td>
+                                 <td>{{transaction.receiver}}</td>
+                                 <td>{{transaction.total_amount}}</td>
+                                 <td>{{transaction.send_amount}}&nbsp;{{transaction.from_currency}}</td>
+                                 <td>{{transaction.receive_amount}}&nbsp;{{transaction.to_currency}}</td>
+                                 <td>{{transaction.transaction_date|date:"d/m/Y"}}</td>
+                                 <td><span class="badge bg-warning text-white">{{transaction.money_status}}</span></td>
+                                 <td class="action-option">
+                                    <div class="dropdown">
+                                       <span class="iconify dropdown-toggle" type="button" id="dropdownMenu2" data-bs-toggle="dropdown" aria-expanded="false" data-icon="bi:three-dots"></span>
+                                       <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                                          <li>
+                                             <a href="{% url 'customeraccess:view_transaction' transaction.id %}" class="dropdown-item">View</a>
+                                          </li>
+                                       </ul>
+                                    </div>
+                                 </td>
+                              </tr>
+                           {% endif %}
+                           {% endfor %}
+                           </tbody>
+                        </table>
+                     </div>
+                     <!-- table-responsive -->
+                  </div>
+                  <div class="tab-pane fade mb-3 mt-3" id="pills-pending" role="tabpanel" aria-labelledby="pills-pending-tab">
+                     <div class="table-responsive">
+                        <table class="table table-hover mg-b-0">
+                           <thead>
+                              <tr>
+                                 <th>
+                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                 </th>
+                                 <th>Transaction ID</th>
+                                 <th>Receiver</th>
+                                 <th>Total Ammount</th>
+                                 <th>From Currency</th>
+                                 <th>To Currency</th>
+                                 <th>Transaction Date</th>
+                                 <th>Transaction Status</th>
+                                 <th>Action</th>
+                              </tr>
+                           </thead>
+                           <tbody>
+                           {% for transaction in my_transaction %}
+                           {% if transaction.money_status == "Received" %}
+                              <tr class="table-data">
+                                 <td>
+                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                 </td>
+                                 <td>{{transaction.transaction_id}}</td>
+                                 <td>{{transaction.receiver}}</td>
+                                 <td>{{transaction.total_amount}}</td>
+                                 <td>{{transaction.send_amount}}&nbsp;{{transaction.from_currency}}</td>
+                                 <td>{{transaction.receive_amount}}&nbsp;{{transaction.to_currency}}</td>
+                                 <td>{{transaction.transaction_date|date:"d/m/Y"}}</td>
+                                 <td><span class="badge bg-info text-white">{{transaction.money_status}}</span></td>
+                                 <td class="action-option">
+                                    <div class="dropdown">
+                                       <span class="iconify dropdown-toggle" type="button" id="dropdownMenu2" data-bs-toggle="dropdown" aria-expanded="false" data-icon="bi:three-dots"></span>
+                                       <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                                          <li>
+                                             <a href="{% url 'customeraccess:view_transaction' transaction.id %}" class="dropdown-item">View</a>
+                                          </li>
+                                       </ul>
+                                    </div>
+                                 </td>
+                              </tr>
+                           {% endif %}
+                           {% endfor %}
+                           </tbody>
+                        </table>
+                     </div>
+                     <!-- table-responsive -->
+                  </div>
+                  <div class="tab-pane fade mb-3 mt-3" id="pills-canceled" role="tabpanel" aria-labelledby="pills-canceled-tab">
+                     <div class="table-responsive">
+                        <table class="table table-hover mg-b-0">
+                           <thead>
+                              <tr>
+                                 <th>
+                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                 </th>
+                                 <th>Transaction ID</th>
+                                 <th>Receiver</th>
+                                 <th>Total Ammount</th>
+                                 <th>From Currency</th>
+                                 <th>To Currency</th>
+                                 <th>Transaction Date</th>
+                                 <th>Transaction Status</th>
+                                 <th>Action</th>
+                              </tr>
+                           </thead>
+                           <tbody>
+                           {% for transaction in my_transaction %}
+                           {% if transaction.money_status == "Cancelled"%}
+                              <tr class="table-data">
+                                 <td>
+                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                 </td>
+                                 <td>{{transaction.transaction_id}}</td>
+                                 <td>{{transaction.receiver}}</td>
+                                 <td>{{transaction.total_amount}}</td>
+                                 <td>{{transaction.send_amount}}&nbsp;{{transaction.from_currency}}</td>
+                                 <td>{{transaction.receive_amount}}&nbsp;{{transaction.to_currency}}</td>
+                                 <td>{{transaction.transaction_date|date:"d/m/Y"}}</td>
+                                 <td><span class="badge bg-danger text-white">{{transaction.money_status}}</span></td>
+                                 <td class="action-option">
+                                    <div class="dropdown">
+                                       <span class="iconify dropdown-toggle" type="button" id="dropdownMenu2" data-bs-toggle="dropdown" aria-expanded="false" data-icon="bi:three-dots"></span>
+                                       <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                                          <li>
+                                             <a href="{% url 'customeraccess:view_transaction' transaction.id %}" class="dropdown-item">View</a>
+                                          </li>
+                                       </ul>
+                                    </div>
+                                 </td>
+                              </tr>
+                           {% endif %}
+                           {% endfor %}
+                           </tbody>
+                        </table>
+                     </div>
+                     <!-- table-responsive -->
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+
+
+{% endblock%}
+
+{%block js%}
+<script>
+{% for msg in messages %}
+ 
+Swal.fire(
+  'Good job!',
+  '{{msg}}',
+  'success'
+)
+{% endfor %}
+</script>
+{% endblock %}

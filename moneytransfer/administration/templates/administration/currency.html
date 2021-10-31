@@ -1,0 +1,188 @@
+{% extends 'base/base.html' %}
+{% load crispy_forms_tags %}
+
+{%block title %}Agent{%endblock%}
+{% load widget_tweaks %}
+
+{% block breadcrumbs %}
+
+<li><i class="iconify" data-icon="eva:arrow-ios-forward-fill"></i><span>Currency</span></li>
+{% endblock %}
+
+{% block breadcrumbsbtn %} 
+
+   <a href="{% url 'administration:add-currency' %}">
+   <button type="btn" class="btn new-add">Add New</button>
+   </a>
+{% endblock %}
+
+{% block content %}
+<div class="breadcrumbs-btn">
+   
+<div class="row row-sm mg-b-20">
+   <div class="col-sm-12 col-lg-12">
+      <div class="card card-table-one">
+         <div class="main-title">
+            <h6 class="card-title">Currency List</h6>
+            <!-- filter-mobile-view Start-->
+            <div class="filter-mobile-view">
+               <button class="btn filter-btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasBottom" aria-controls="offcanvasBottom"><span class="iconify" data-icon="system-uicons:filtering"></span>Filter</button>
+               <div class="offcanvas offcanvas-bottom" tabindex="-1" id="offcanvasBottom" aria-labelledby="offcanvasBottomLabel">
+                  <div class="offcanvas-header">
+                     <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                  </div>
+                  <div class="offcanvas-body small">
+                  <form method="get">
+                   <div class="row">
+               <div class="col-md-6 col-xl-2 col-sm-12">
+                  <label for="Currency-1" class="form-label">Search From Currency</label>
+                   {% render_field filter.form.from_currency class="form-control" %}
+                  
+               </div>
+               <div class="col-md-6 col-xl-2 col-sm-12">
+                  <label for="Currency-2" class="form-label">Search By To Currency</label>
+                            {% render_field filter.form.to_currency class="form-control" %}
+               
+               </div>
+               <div class="col-md-6 col-xl-2 col-sm-12">
+                  <label for="exampleDataList" class="form-label">Search By Market Rate</label>
+                           {% render_field filter.form.market_rate class="form-control" %}
+               </div>
+               <div class="col-md-6 col-xl-2 col-sm-12">
+                  <label for="exampleDataList" class="form-label">Total Commission</label>
+                                           {% render_field filter.form.total_commission class="form-control" %}
+
+               </div>
+               <div class="col-md-6 col-xl-2 col-sm-12">
+                  <div class="filter-field-btn">
+                        <button type="submit" class="btn new-add">Search</button>
+                        <a href="{% url 'administration:currency'%}" class="btn clear-btn" > Clear All </a>
+                     </div>
+               </div>
+               </form>
+            </div>
+                  </div>
+               </div>
+            </div>
+            <!-- filter-mobile-view End-->
+         </div>
+         <hr />
+         <div class="filter-field">
+         <form method="get">
+            <div class="row">
+               <div class="col-md-6 col-xl-3 col-sm-12">
+                  <label for="Currency-1" class="form-label">Search From Currency</label>
+                  {% render_field filter.form.from_currency class="form-control select" %}
+                
+               </div>
+               <div class="col-md-6 col-xl-3 col-sm-12">
+                  <label for="Currency-2" class="form-label">Search By To Currency</label>
+                 {% render_field filter.form.to_currency class="form-control select" %}
+             
+               </div>
+
+               <div class="col-md-6 col-xl-3 col-sm-12">
+                  <label for="exampleDataList" class="form-label">Total Commission</label>
+                              {% render_field filter.form.total_commission class="form-control" %}
+             
+               </div>
+               <div class="col-md-6 col-xl-3 col-sm-12">
+                  <div class="filter-field-btn">
+                        <button type="submit" class="btn new-add">Search</button>
+                        <a href="{% url 'administration:currency'%}" class="btn clear-btn" > Clear All </a>
+                     </div>
+               </div>
+             </form>  
+            </div>
+         </div>
+         <div class="table-responsive">
+            <table class="table table-hover mg-b-0">
+               <thead>
+                  <tr>
+                     <th>
+                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                     </th>
+                     <th>ID</th>
+                     <th>From Currency</th>
+                     <th>To Currency</th>
+                     <th>Market Rate</th>
+                     <th>Our Rate</th>
+                     <th>Total Commission</th>
+                     <th>Action</th>
+                  </tr>
+               </thead>
+               <tbody id="pageTable">
+                  {%if page_obj %}
+                  {% for currency in page_obj %}
+                  <tr class="table-data">
+                     <td>
+                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                     </td>
+                     <td>{{currency.id}}</td>
+                     <td>{{currency.from_currency}}</td>
+                     <td>{{currency.to_currency}}</td>
+                     <td>{{currency.market_rate}}</td>
+                     <td>{{currency.our_rate}}</td>
+                     <td>{{currency.total_commission}}</td>
+                     <td class="action-option">
+                        <div class="dropdown">
+                           <span class="iconify dropdown-toggle" type="button" id="dropdownMenu2" data-bs-toggle="dropdown" aria-expanded="false" data-icon="bi:three-dots"></span>
+                           <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                              <li>
+                                 <a href="{% url 'administration:view_currency' currency.id %}" class="dropdown-item">View</a>
+                              </li>   
+                              <li>
+                                 <a href="{% url 'administration:delete_currency' currency.id %}" class="dropdown-item">Delete</a>
+                              </li>
+                           </ul>
+                        </div>
+                     </td>
+                  </tr>
+               {% endfor %}
+                  {% else %}
+                  <tr>
+                  <td>No Record Found </td>
+                  </tr>
+               {% endif %}
+               </tbody>
+            </table>
+         </div>
+         <!-- table-responsive -->
+         <div class="table-pagination">   
+            <nav aria-label="Page navigation example">
+        <ul class="pagination">
+         {% if page_obj.has_previous %}
+            <li class="page-item"> <a class="page-link" href="?page={{ page_obj.previous_page_number }}" tabindex="-1" aria-disabled="true">Previous</a> </li>
+         {% endif %}
+         {% for i in page_obj.paginator.page_range%}
+         {% if page_obj.number == i %}   
+            <li class="page-item"><a class="page-link" href="?page={{i}}">{{i}}</a></li>
+            {% elif i > page_obj.number|add:'-3' and i < page_obj.number|add:'1' %}
+               <li class="page-item"><a class="page-link" href="?page={{i}}">{{i}}</a></li>
+            {% endif %}         
+            {% endfor %} 
+            {% if page_obj.paginator.num_pages > page_obj.number|add:'1' %}
+               <li><a href="?page={{ page_obj.number|add:'1' }}"></a></li>
+            {% endif %}  
+         {% if page_obj.has_next %}   
+            <li class="page-item"> <a class="page-link" href="?page={{ page_obj.next_page_number }}">Next&hellip;</a> </li>
+         {% endif %}      
+         </ul>
+      </nav>
+         </div>
+      </div>
+   </div>
+</div>
+{% endblock%}
+ {%block js%}
+<script>
+{% for msg in messages %}
+ 
+Swal.fire(
+  'Good job!',
+  '{{msg}}',
+  'success'
+)
+{% endfor %}
+</script>
+{% endblock %}

@@ -1,0 +1,147 @@
+{% extends 'base/base.html' %}
+
+{% load static %}
+
+{%block title %}Agent{%endblock%}
+
+{% block breadcrumbs %}
+
+<li><a href="{% url 'administration:agent' %}"><i class="iconify" data-icon="eva:arrow-ios-forward-fill"></i><span>Agent</span></a></li>
+<li><i class="iconify" data-icon="eva:arrow-ios-forward-fill"></i><span>View Agent Profile</span></li>
+
+{% endblock %}
+
+{% block breadcrumbsbtn %} 
+
+  {% for agent in view_agent  %}
+<a href="{% url 'administration:edit_agent' agent.id %}"><button type="btn" class="btn new-add">Edit</button></a>
+<a href="{% url 'administration:delete_agent' agent.id %}"><button type="btn" class="btn clear-btn">Delete</button></a>
+{% endfor %}
+
+{% endblock %}
+
+
+{% block content %}  
+{%if view_agent %}
+{% for agent in view_agent  %}
+<div class="row row-sm mg-b-20">
+   <div class="col-sm-12 col-lg-12">
+      <div class="card card-table-one">
+         <h6 class="card-title">{{agent.username}}</h6> Agent Profile</h6>
+         <hr>
+         <div class="view-agent">
+            <div class="row">
+               <div class="col-md-6 col-sm-12">
+                  <div class="border-right">
+                     <div class="row">
+                        <div class="col-md-4">
+                           <p><span>Title :</span></p>
+                        </div>
+                        <div class="col-md-8">
+                           <p>{{agent.title_type}}</p>
+                        </div>
+                     </div>
+                     <div class="row">
+                        <div class="col-md-4">
+                           <p><span>First Name :</span></p>
+                        </div>
+                        <div class="col-md-8">
+                           <p>{{agent.first_name}}</p>
+                        </div>
+                     </div>
+                     <div class="row">
+                        <div class="col-md-4">
+                           <p><span>Last Name :</span></p>
+                        </div>
+                        <div class="col-md-8">
+                           <p>{{agent.last_name}}</p>
+                        </div>
+                     </div>
+                     <div class="row">
+                        <div class="col-md-4">
+                           <p><span>Email :</span></p>
+                        </div>
+                        <div class="col-md-8">
+                           <p><a href="mailto:{{agent.email.url}}">{{agent.email}}</a></p>
+                        </div>
+                     </div>
+                     <div class="row">
+                        <div class="col-md-4">
+                           <p><span>Mobile Number :</span></p>
+                        </div>
+                        <div class="col-md-8">
+                           <p><a href="tel:{{agent.mobile_no}}">{{agent.mobile_no}}</a></p>
+                        </div>
+                     </div>
+                     <div class="row">
+                        <div class="col-md-4">
+                           <p><span>Date of Birth :</span></p>
+                        </div>
+                        <div class="col-md-8">
+                           <p>{{agent.dob}}</p>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+               <div class="col-md-6 col-sm-12">
+                  <div class="border-right">
+                     <div class="row">
+                        <div class="col-md-4">
+                           <p><span>Address :</span></p>
+                        </div>
+                        <div class="col-md-8">
+                           <p>{{agent.address}}</p>
+                        </div>
+                     </div>
+                     <div class="row">
+                        <div class="col-md-4">
+                           <p><span>City :</span></p>
+                        </div>
+                        <div class="col-md-8">
+                           <p>{{agent.city}}</p>
+                        </div>
+                     </div>
+                     <div class="row">
+                        <div class="col-md-4">
+                           <p><span>Postal code :</span></p>
+                        </div>
+                        <div class="col-md-8">
+                           <p>{{agent.postal_code}}</p>
+                        </div>
+                     </div>
+                     <div class="row">
+                        <div class="col-md-4">
+                           <p><span>Country :</span></p>
+                        </div>
+                        <div class="col-md-8">
+                           <p>{{agent.country}}</p>
+                        </div>
+                     </div>
+                     <div class="row">
+                        <div class="col-md-4">
+                           <p><span>Nationality :</span></p>
+                        </div>
+                        <div class="col-md-8">
+                           <p>{{agent.nationality}}</p>
+                        </div>
+                     </div>
+                     <div class="row">
+                        <div class="col-md-4">
+                           <p><span>Status :</span></p>
+                        </div>
+                        <div class="col-md-8">
+                           <p>{{agent.status}}</p>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+{% endfor %}
+{% else %}
+<p>No Record Found</p>
+{% endif %}
+{% endblock%}

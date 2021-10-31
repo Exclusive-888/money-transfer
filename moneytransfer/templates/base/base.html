@@ -1,0 +1,40 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+   <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+       <title>{%block title %}{% endblock %} </title>
+       {% include 'base/css.html' %}
+       {%block css%}{% endblock %}
+        <link rel="shortcut icon" type="image/png" href="{% static 'image/favicon.ico' %}" />
+   </head>
+<body>
+{% include 'base/side-bar.html' %}
+{%block side%}{% endblock %}
+<section class="home-section">
+      {% include 'base/topbar.html'%}
+       <div class="breadcrumbs">
+          <div class="breadcrumbs-iteam">
+              <ul>
+                  <li><a href="{% url 'administration:dashboard'%}"><i class="iconify" data-icon="bx:bx-home-alt"></i></a></li>
+                  {%block breadcrumbs%}{% endblock %}
+              </ul>
+          </div>
+          <div class="breadcrumbs-btn">
+             {%block breadcrumbsbtn %}{% endblock %}
+          </div>
+        </div>
+        <div class="counter">
+          <div class="container-fluid">
+              {%block content%}{%endblock%}
+          </div>
+       </div>
+{% include 'base/floating-menu.html'%}
+{% include 'base/footer.html'%}
+</section>
+{% include 'base/js.html'%}
+{%block js%}{% endblock %}
+</body>
+</html>

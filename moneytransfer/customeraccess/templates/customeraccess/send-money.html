@@ -1,0 +1,56 @@
+{% extends 'base/customer-base.html' %}
+
+{% load crispy_forms_tags %}
+
+{%block title %} Send Money To Receiver {%endblock%}
+
+{% block breadcrumbs %}
+
+   <li><a href="{% url 'customeraccess:my_transaction' %}"><i class="iconify" data-icon="eva:arrow-ios-forward-fill"></i><span>My Transaction</span></a></li>
+   <li><i class="iconify" data-icon="eva:arrow-ios-forward-fill"></i><span>Make Money Transfer</span></li> 
+
+{% endblock %}
+
+{% block breadcrumbsbtn %} 
+
+   <button form="id-sendmoneyform" type="submit" class="btn new-add">Save</button>
+   <button form="id-sendmoneyform" type="reset" class="btn clear-btn">Reset</button>
+
+{% endblock %}
+
+{% block content %} 
+
+   <div class="row row-sm mg-b-20">
+      <div class="col-sm-12 col-lg-12">
+         <div class="card card-table-one">
+         <form class="" id="id-sendmoneyform" method="post">
+            {% csrf_token %}
+            {% crispy form %}
+         </form>
+         </div>
+      </div>
+   </div>
+
+{% endblock%}
+
+{%block js%}
+<script>
+$(document).ready(function() {
+    
+    $('.form-group').keyup(function () {
+        var our = parseFloat($('#id_our_rate').val());
+        var transfer = parseFloat($('#id_transfer_rate').val());
+        var send = parseFloat($('#id_send_amount').val());
+        var receive = parseFloat($('#id_receive_amount').val());
+         
+        $('#id_receive_amount').val(our * send);
+        $('#id_total_amount').val(our + send + transfer);
+
+
+    });  
+  
+});
+</script>
+
+{% endblock %}
+ 

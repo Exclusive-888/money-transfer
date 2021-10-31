@@ -1,0 +1,137 @@
+{% extends 'base/base.html' %}
+
+{% load crispy_forms_tags %}
+
+{%block title %}Welcome To Money Transfer{%endblock%}
+
+{% block breadcrumbs %}
+{% endblock %}
+
+{%block content %}
+<div class="main-counter">
+   <div class="row" >
+      <div class="col-md-4 col-sm-12">
+      <a href="/transfer/money-transfer">
+       <div class='content'>
+         <div class="card">
+            <div class="card-body">
+               <div class="money-transfers">
+                  <div class="count-number">
+                     <span class="iconify" data-icon="bi:truck"></span>
+                  </div>
+                  <div class="count-detail">
+                     <h3>{{total_transfer}}</h3>
+                      Money Transfers</a>
+                  </div>
+               </div>
+            </div>
+         </div>
+         </div>
+      </div>
+      <div class="col-md-4 col-sm-12">
+      <a href="/exchange/money-exchange">
+         <div class='content'>
+         <div class="card">
+            <div class="card-body">
+               <div class="money-transfers">
+                  <div class="count-number">
+                     <span class="iconify" data-icon="ri:exchange-box-line"></span>
+                  </div>
+                  <div class="count-detail">
+                     <h3>{{total_exchange}}</h3>
+                     Money Exchanges</a>
+                  </div>
+               </div>
+            </div>
+         </div>
+         </div>
+      </div>
+      <div class="col-md-4 col-sm-12">
+      <a href="/transfer/debt-money-transfer">
+      <div class='content'>
+         <div class="card">
+            <div class="card-body">
+               <div class="money-transfers">
+                  <div class="count-number">
+                     <span class="iconify" data-icon="carbon:money"></span>
+                  </div>
+                  <div class="count-detail">
+                     <h3>{{total_debt}}</h3>
+                     Pending Debt. Collection</a>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>   
+      </div>
+   </div>
+   <div class="row">
+      <div class="col-md-4 col-sm-12">
+      <a href="/customer">
+      <div class='content'>
+         <div class="card">
+            <div class="card-body">
+               <div class="money-transfers">
+                  <div class="count-number">
+                     <span class="iconify" data-icon="ph:users-three"></span>
+                  </div>
+                  <div class="count-detail">
+                     <h3>{{total_customer}}</h3>
+                     Customer</a>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>   
+      </div>
+      <div class="col-md-4 col-sm-12">
+      <a href="/agent">
+      <div class='content'>
+         <div class="card">
+            <div class="card-body">
+               <div class="money-transfers">
+                  <div class="count-number">
+                     <span class="iconify" data-icon="clarity:user-line"></span>
+                  </div>
+                  <div class="count-detail">
+                     <h3>{{total_agent}}</h3>
+                     Agent</a>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>   
+      </div>
+      <div class="col-md-4 col-sm-12"> 
+      <a href="/currency">
+      <div class='content'>
+         <div class="card">
+            <div class="card-body">
+               <div class="money-transfers">
+                  <div class="count-number">
+                     <span class="iconify" data-icon="cil:money"></span>
+                  </div>
+                  <div class="count-detail">
+                     <h3>{{total_currency}}</h3>
+                     Currency </a>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>   
+      </div>
+   </div>
+</div>
+{% endblock %}
+{%block js%}
+<script>
+{% for msg in messages %}
+ 
+Swal.fire(
+  'Good job!',
+  '{{msg}}',
+  'success'
+)
+{% endfor %}
+</script>
+{% endblock %}

@@ -1,0 +1,39 @@
+{% extends 'base/base.html' %}
+
+{% load crispy_forms_tags %}
+
+{%block title %} Frequently asked question (FAQ){%endblock%}
+
+{% block breadcrumbs %}
+
+   <li><a href="{% url 'administration:faq_list' %}"><i class="iconify" data-icon="eva:arrow-ios-forward-fill"></i><span>Faq</span></a></li>
+   <li><i class="iconify" data-icon="eva:arrow-ios-forward-fill"></i><span>View Faq</span></li>
+
+{% endblock %}
+
+{% block breadcrumbsbtn %} 
+
+   <button form="id-faqform" type="submit" class="btn new-add">Save</button>
+   <button form="id-faqform" type="reset" class="btn clear-btn">Reset</button>
+
+{% endblock %}
+
+{% block content %} 
+
+   <div class="row row-sm mg-b-20">
+      <div class="col-sm-12 col-lg-12">
+         <div class="card card-table-one">
+         <form class="" id="id-faqform" method="post">
+            {% csrf_token %}
+            {% crispy form %}
+            <br>  
+         </form>
+         </div>
+      </div>
+   </div>
+
+{% endblock%}
+ 
+{%block js%}
+
+{% endblock %}

@@ -1,0 +1,127 @@
+{% load static %}
+<div class="sidebar">
+   <div class="logo-details">
+      <i><a href="{% url 'administration:dashboard'%}"><img src="{%static 'image/logo-6.png'%}"></a></i>
+    <div class="logo_name">Money Transfer</div>
+      <i class='bx bx-menu' id="btn" ></i>
+    </div>
+    <ul class="nav-list">
+    <div class='content'>
+    <li>
+        <a href="{% url 'administration:dashboard'%}">
+        <i class='bx bx-grid-alt'></i>
+        <span class="links_name">Dashboard</span>
+        </a>
+        <span class="tooltip">Dashboard</span>
+    </li>
+    <div>
+    <div class='content'>
+    <li>
+        <a href="{% url 'administration:agent'%}" id="fuck">
+        <i class='bx bx-user'></i>
+        <span class="links_name">Agent</span>
+        </a>
+        <span class="tooltip">Agent</span>
+    </li>
+    </div>
+    <div class='content'>
+    <li>
+        <a href="{% url 'administration:customer'%}" id="suck">
+        <i class='bx'>
+        <span class="iconify" data-icon="ph:users-three"></span>
+        </i>
+        <span class="links_name">Customer</span>
+        </a>
+        <span class="tooltip">Customer</span>
+    </li>
+    </div>
+    <div class='content'>
+    <li>
+        <a href="{% url 'transfer:money_transfer'%}">
+        <i class='bx'>
+        <span class="iconify"data-icon="carbon:money"></span>
+        </i>
+        <span class="links_name">Money Transfer</span>
+        </a>
+        <span class="tooltip">Money Transfer</span>
+    </li>
+    </div>
+    <div class='content'>
+    <li>
+        <a href="{% url 'transfer:debt_transfer'%}">
+        <i class='bx'>
+        <span class="iconify" data-icon="carbon:money"></span>
+        </i>
+        <span class="links_name">Debt Money Transfer</span>
+        </a>
+        <span class="tooltip">Debt Money Transfer</span>
+    </li>
+    </div>
+    <div class='content'>
+    <li>
+        <a href="{% url 'exchange:money_exchange'%}">
+        <i class='bx'>
+        <span class="iconify"  data-icon="carbon:money"></span>
+        </i>
+        <span class="links_name">Money Exchange</span>
+        </a>
+        <span class="tooltip">Money Exchange</span>
+    </li>
+    </div>
+    <div class='content'>
+    <li>
+        <a href="{% url 'administration:agent_bank' %}">
+        <i class='bx'>
+        <span class="iconify"  data-icon="mdi-light:bank"></span>
+        </i>
+        <span class="links_name">Agent Bank</span>
+        </a>
+        <span class="tooltip">Agent Bank</span>
+    </li>
+    </div>
+    <div class='content'>
+    <li>
+        <a href="{% url 'administration:customer_bank' %}">
+        <i class='bx'>
+        <span class="iconify"   data-icon="mdi-light:bank"></span>
+        </i>
+        <span class="links_name">Customer Bank</span>
+        </a>
+        <span class="tooltip">Customer Bank</span>
+    </li>
+    </div>
+    <div class='content'>
+    <li>
+        <a href="{% url 'administration:currency'%}">
+        <i class='bx'>
+        <span class="iconify" data-icon="mdi-light:currency-eur"></span>
+        </i>
+        <span class="links_name">Currency</span>
+        </a>
+        <span class="tooltip">Currency</span>
+    </li>
+    </div>
+    <div class='content'>
+    <li>
+        <a href="{% url 'administration:reason'%}" class="">
+        <i class='bx'>
+        <span class="iconify"  data-icon="carbon:send-alt"></span>
+        </i>
+        <span class="links_name">Reasons For Sending</span>
+        </a>
+        <span class="tooltip">Reasons For Sending</span>
+    </li>
+    </div>
+    <div class='content'>
+    <li>
+        <a href="{% url 'customeraccess:construction' %}"id="ulCategory">
+        <i class='bx'>
+        <span class="iconify" data-icon="iconoir:reports"></span>
+        </i>
+        <span class="links_name">Reports</span>
+        </a>
+        <span class="tooltip">Reports</span>
+    </li>
+    </div>
+    </ul>
+</div>

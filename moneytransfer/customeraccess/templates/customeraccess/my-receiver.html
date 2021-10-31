@@ -1,0 +1,177 @@
+{% extends 'base/customer-base.html' %}
+
+{% load static %}
+
+{% load widget_tweaks %}
+
+{%block title %} My Receivers {%endblock%}
+
+{% block breadcrumbs %}
+
+  <li><i class="iconify" data-icon="eva:arrow-ios-forward-fill"></i><span> My Receivers </span></li>
+
+{% endblock %}
+
+{% block breadcrumbsbtn %} 
+
+    <a href="{% url 'customeraccess:add_receiver' %}" > <button type="btn" class="btn new-add"> Add New </button></a>
+
+{% endblock %}
+
+{% block content %}
+   
+        <div class="row row-sm mg-b-20">
+            <div class="col-sm-12 col-lg-12">
+                <div class="card card-table-one">
+                <div class="main-title">
+                    <h6 class="card-title"> My Receivers List </h6>
+                    <!-- filter-mobile-view Start-->
+                    <div class="filter-mobile-view">
+                        <button class="btn filter-btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasBottom" aria-controls="offcanvasBottom"><span class="iconify" data-icon="system-uicons:filtering"></span>Filter</button>
+                        <div class="offcanvas offcanvas-bottom" tabindex="-1" id="offcanvasBottom" aria-labelledby="offcanvasBottomLabel">
+                            <div class="offcanvas-header">
+                            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                            </div>
+                            <div class="offcanvas-body small">
+                           <form method="get">
+                            <div class="row">
+                                <div class="col-md-6 col-xl-3 col-sm-12 mb-3">
+                                    <label for="exampleDataList" class="form-label">Search By First Name</label>
+                                       {% render_field filter.form.first_name class="form-control " %}
+                                 
+                                </div>
+                                <div class="col-md-6 col-xl-3 col-sm-12 mb-3">
+                                    <label for="exampleDataList" class="form-label">Search By Account Number</label>
+                                     {% render_field filter.form.account_no class="form-control " %}
+                                </div>
+                                <div class="col-md-6 col-xl-3 col-sm-12 mb-3">
+                                    <label for="exampleDataList2" class="form-label">Search By Country</label>
+                                     {% render_field filter.form.country class="form-control " %}                 
+                                </div>
+                                <div class="col-md-6 col-xl-3 col-sm-12">
+                                    <div class="filter-field-btn">
+                                    <button type="submit" class="btn new-add">Search</button>
+                                    <a href="{% url 'customeraccess:my_receiver'%}" class="btn clear-btn" > Clear All </a>
+                                 </div>
+                                </div>
+                            </div>
+                            </form>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- filter-mobile-view End-->
+                </div>
+                <hr />
+                <div class="filter-field">
+                <form method="get">
+                    <div class="row">
+                        <div class="col-md-6 col-xl-3 col-sm-12">
+                            <label for="ID" class="form-label">Search By First Name</label>
+                             {% render_field filter.form.first_name class="form-control " %}    
+                        </div>
+                        <div class="col-md-6 col-xl-3 col-sm-12">
+                            <label for="Currency-2" class="form-label">Search By Account Number</label>
+                             {% render_field filter.form.account_no class="form-control " %}                         
+                        </div>
+                        <div class="col-md-6 col-xl-3 col-sm-12">
+                            <label for="Nationality" class="form-label">Search By Country</label>
+                             {% render_field filter.form.country class="form-control select" %}            
+                        </div>
+                        <div class="col-md-6 col-xl-3 col-sm-12">
+                        <div class="filter-field-btn">
+                        <button type="submit" class="btn new-add">Search</button>
+                        <a href="{% url 'customeraccess:my_receiver'%}" class="btn clear-btn" > Clear All </a>
+                        </div>
+                        </div>
+                    </div>
+                </form>    
+                </div>
+                </div>
+            </div>
+        <div class="new-card mt-4">
+   <div class="row">
+    {%if page_obj %}
+      {% for receiver in page_obj  %}
+       <div class="col-sm-12 col-md-6 col-xl-4">
+         <div class="card">
+            <div class="card-body">
+               <div class="card-user">
+                  <div class="user-info">
+                     <div class="user-info__img">
+                        <img src="{%static 'image/user.png'%}" alt="Agent">
+                     </div>
+                     <div class="user-info__basic">
+                        <h5 class="mb-6">{{receiver.first_name}}&nbsp;{{receiver.last_name}}</h5>
+                     </div>
+                  </div>
+                  <div class="dropdown">
+                     <span class="iconify dropdown-toggle" type="button" id="dropdownMenu2" data-bs-toggle="dropdown" aria-expanded="false" data-icon="bi:three-dots"></span>
+                     <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                        <li>
+                           <a href="{% url 'customeraccess:view_receiver' receiver.id %}" class="dropdown-item"> View </a>
+                        </li>
+                        <li>
+                        </li>
+                     </ul>
+                  </div>
+               </div>
+               <div class="agent-contact">
+                  <div>
+                     <p>Country</p>
+                     <h6>{{receiver.country}}</h6>
+                  </div>
+               </div>
+               <div class="agent-contact-status">
+                  <div>
+                     <p>Mobile Number</p>
+                     <h6>{{receiver.mobile_no}}</h6>
+                  </div>
+               </div>
+            </div>
+         </div>     
+      </div>
+   {% endfor %}
+   {% else %}
+      <tr>
+      <td>No Record Found </td>
+      </tr>
+   {% endif %}
+   </div>
+   <div class="card-pagination">
+      <nav aria-label="Page navigation example">
+        <ul class="pagination">
+         {% if page_obj.has_previous %}
+            <li class="page-item"> <a class="page-link" href="?page={{ page_obj.previous_page_number }}" tabindex="-1" aria-disabled="true">Previous</a> </li>
+         {% endif %}
+         {% for i in page_obj.paginator.page_range%}
+         {% if page_obj.number == i %}   
+            <li class="page-item"><a class="page-link" href="?page={{i}}">{{i}}</a></li>
+            {% elif i > page_obj.number|add:'-3' and i < page_obj.number|add:'1' %}
+               <li class="page-item"><a class="page-link" href="?page={{i}}">{{i}}</a></li>
+            {% endif %}         
+            {% endfor %} 
+            {% if page_obj.paginator.num_pages > page_obj.number|add:'1' %}
+               <li><a href="?page={{ page_obj.number|add:'1' }}"></a></li>
+            {% endif %}  
+         {% if page_obj.has_next %}   
+            <li class="page-item"> <a class="page-link" href="?page={{ page_obj.next_page_number }}">Next&hellip;</a> </li>
+         {% endif %}      
+         </ul>
+      </nav>
+   </div>
+</div>
+
+{% endblock%}
+
+{%block js%}
+<script>
+{% for msg in messages %}
+ 
+Swal.fire(
+  'Good job!',
+  '{{msg}}',
+  'success'
+)
+{% endfor %}
+</script>
+{% endblock %}

@@ -1,0 +1,132 @@
+{% extends 'base/base.html' %}
+{% load crispy_forms_tags %}
+
+{%block title %}Money Transfer{%endblock%}
+
+{% block breadcrumbs %}
+
+<li><a href="{% url 'transfer:money_transfer' %}"><i class="iconify" data-icon="eva:arrow-ios-forward-fill"></i><span>Money Transfer</span></a></li>
+<li><i class="iconify" data-icon="eva:arrow-ios-forward-fill"></i><span> Edit Transfer</span></li>
+
+{% endblock %}
+
+{% block breadcrumbsbtn %} 
+
+   <button form="id-editmoneytransferform" type="submit" class="btn new-add">Save</button>
+   <button form="id-editmoneytransferform" type="reset" class="btn clear-btn">Reset</button>
+
+{% endblock %}
+
+
+{% block content %} 
+
+    <div class="row row-sm mg-b-20">
+        <div class="col-sm-12 col-lg-12">
+            <div class="card card-table-one">
+                <form  method="post" id="id-editmoneytransferform" data-cities-url="{% url 'transfer:load_rate' %}" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {% crispy form %}
+                </form>
+            </div>
+        </div>
+    </div>
+
+{% endblock%}
+ 
+{%block js%}
+<script>
+   $(function(){
+      'use strict'
+      $(document).ready(function(){
+         $('.select').select2({
+         placeholder: 'Select',
+         });
+         $('.lazyselect').select2({
+         placeholder: 'Select',
+         });
+      });
+   });
+</script>
+<script>
+$("#div_id_send_method").change(function() {
+    var selectedVal = $('option:selected', this).text();
+    if(selectedVal == "Debt")
+    {
+         $('#div_id_paid_amount').css('display', 'block');
+         $('#div_id_due_date').css('display', 'block');
+         $('#div_id_outstanding_amount').css('display', 'block');
+
+    }
+    else
+    {
+        $('#div_id_paid_amount').css('display', 'none');
+        $('#div_id_due_date').css('display', 'none');
+        $('#div_id_outstanding_amount').css('display', 'none');
+
+    }
+});
+
+$("#div_id_send_method").change(function() {
+    var selectedVal = $('option:selected', this).text();
+    if(selectedVal == "Bank Transfer" || selectedVal == "Cheque Transfer")
+    {
+         $('#div_id_agent_bank').css('display', 'block');
+    }
+    else
+    {
+        $('#div_id_agent_bank').css('display', 'none');
+    }
+
+});
+
+$(function() {
+    $("#div_id_agent_bank").hide();
+    if($("#div_id_send_method").val() == 'debt') //I'm supposing the "Other" option value is 0.
+         $("#div_id_outstanding_amount").show();
+         $("#div_id_due_date").show();
+         $("#div_id_paid_amount").show();
+});
+$(document).ready(function() {            
+   $('#div_id_agent_bank').attr('required', 'required');   
+});
+
+
+
+</script>
+
+<script>
+    $("#id_from_currency").change(function () {
+      var url = '/transfer/ajax/load-cities/'
+      var receiving = $(this).val();
+
+      $.ajax({
+        url: url,
+        data: {
+          'from_currency': receiving,
+         },
+        success: function (data) {
+          $("#id_to_currency").html(data);
+        }
+      });
+
+    });
+    
+    $("#id_to_currency").change(function () {
+      var url = '/transfer/'
+      var send = $(this).val();
+
+      $.ajax({
+        url: url,
+        data: {
+          'to_currency': send,
+         },
+        success: function (data) {
+                    debugger
+
+          $("#id_total_commission").html(data);
+        }
+      });
+
+    });
+  </script> 
+{% endblock %}

@@ -1,0 +1,56 @@
+{% extends 'base/base.html' %}
+
+{% load crispy_forms_tags %}
+
+{%block title %}Customer{%endblock%}
+
+{% block breadcrumbs %}
+
+   <li><a href="{% url 'administration:customer_bank' %}"><i class="iconify" data-icon="eva:arrow-ios-forward-fill"></i><span>Customer</span></a></li>
+   <li><i class="iconify" data-icon="eva:arrow-ios-forward-fill"></i><span>Add New Customer</span></li>
+
+{% endblock %}
+
+{% block breadcrumbsbtn %} 
+
+   <button form="id-customerform" type="submit" class="btn new-add">Save</button>
+   <button form="id-customerform" type="reset" class="btn clear-btn">Reset</button>
+
+{% endblock %}
+
+{% block content %} 
+
+   <div class="row row-sm mg-b-20">
+      <div class="col-sm-12 col-lg-12">
+         <div class="card card-table-one">
+         <form  method="post" id="id-customerform" enctype="multipart/form-data">
+            {% csrf_token %}
+            {% crispy form %}
+            <br>  
+         </form>
+         </div>
+      </div>
+   </div>
+
+{% endblock%}
+ 
+{%block js%}
+
+   <script>
+      $('#div_id_prof_address').hide();
+      $("#id_documents_type").change(function() {
+         var selectedVal = $('option:selected', this).text();
+         if(selectedVal == "Other")
+         {
+            $('#div_id_prof_address').show();   
+         }
+         else
+         {
+            $('#div_id_prof_address').hide();
+         }
+   
+      });
+      
+   </script>
+
+{% endblock %}

@@ -1,0 +1,154 @@
+{% extends 'base/customer-base.html' %}
+
+{% load static %}
+
+{%block title %} View My Receivers {%endblock%}
+
+{% block breadcrumbs %}
+  <li><a href="{% url 'customeraccess:my_receiver' %}"><i class="iconify" data-icon="eva:arrow-ios-forward-fill"></i><span>My Receiver</span></a></li>
+  <li><i class="iconify" data-icon="eva:arrow-ios-forward-fill"></i><span> View My Receiver </span></li>
+
+{% endblock %}
+
+{% block breadcrumbsbtn %} 
+
+  {%for receiver in view_receiver %}
+    <a href="{% url 'customeraccess:edit_receiver' receiver.id %}" > <button type="btn" class="btn new-add"> Edit </button></a>
+    <a href="{% url 'customeraccess:delete_receiver' receiver.id %}" > <button type="btn" class="btn clear-btn"> Delete </button></a>
+  {% endfor %}
+
+{% endblock %}
+
+{% block content %}
+  {%if view_receiver %}
+    {% for receiver in view_receiver  %}
+    <div class="row row-sm mg-b-20">
+        <div class="col-sm-12 col-lg-12">
+            <div class="card card-table-one">
+            <h6 class="card-title">{{receiver.first_name}}&nbsp;{{receiver.last_name}}</h6>
+            <hr>
+            <div class="view-agent">
+                <div class="row">
+                    <div class="col-md-2 col-sm-12">
+                        <div class="receiver-img">
+                        <img src="{% static 'image/admin-pic.png' %}" alt="admin-pic" class="img-fluid">
+                        </div>
+                    </div>
+                    <div class="col-md-5 col-sm-12">
+                        <div class="border-right">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <p><span>First Name :</span></p>
+                            </div>
+                            <div class="col-md-8">
+                                <p>{{receiver.first_name}}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <p><span>Last Name :</span></p>
+                            </div>
+                            <div class="col-md-8">
+                                <p>{{receiver.last_name}}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <p><span>Email :</span></p>
+                            </div>
+                            <div class="col-md-8">
+                                <p><a href="mailto:{{receiver.email}}">{{receiver.email}}</a></p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <p><span>Mobile number :</span></p>
+                            </div>
+                            <div class="col-md-8">
+                                <p><a href="tel:{{receiver.mobile_no}}">{{receiver.mobile_no}}</a></p>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                    <div class="col-md-5 col-sm-12">
+                        <div class="border-right">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <p><span>City :</span></p>
+                            </div>
+                            <div class="col-md-8">
+                                <p>{{receiver.city}}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <p><span>Country :</span></p>
+                            </div>
+                            <div class="col-md-8">
+                                <p>{{receiver.country}}</p>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <h6 class="card-title card-title-profile2">Bank Informantion</h6>
+            <hr>
+            <div class="view-agent">
+                <div class="row">
+                    <div class="col-md-6 col-sm-12">
+                        <div class="border-right">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <p><span>Account Name :</span></p>
+                            </div>
+                            <div class="col-md-8">
+                                <p>{{receiver.account_name}}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <p><span>Account No :</span></p>
+                            </div>
+                            <div class="col-md-8">
+                                <p>{{receiver.account_no}}</p>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-sm-12">
+                        <div class="border-right">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <p><span>Branch Code :</span></p>
+                            </div>
+                            <div class="col-md-8">
+                                <p>{{receiver.branch_code}}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <p><span>Bank Name :</span></p>
+                            </div>
+                            <div class="col-md-8">
+                                <p>{{receiver.bank_name}}</p>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>
+{% endfor %}
+   {% else %}
+      <tr>
+      <td>No Record Found </td>
+      </tr>
+   {% endif %}
+{% endblock%}
+
+{%block js%}
+
+{% endblock %}

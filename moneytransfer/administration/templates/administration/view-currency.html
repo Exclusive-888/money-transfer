@@ -1,0 +1,88 @@
+{% extends 'base/base.html' %}
+
+{% load static %}
+
+{%block title %}View Currency{%endblock%}
+
+{% block breadcrumbs %}
+
+<li><a href="{% url 'administration:currency' %}"><i class="iconify" data-icon="eva:arrow-ios-forward-fill"></i><span>Currency</span></a></li>
+<li><i class="iconify" data-icon="eva:arrow-ios-forward-fill"></i><span>View Currency </span></li>
+
+{% endblock %}
+
+{% block breadcrumbsbtn %} 
+
+   {% for currency in view_currency  %}
+    <a href="{% url 'administration:edit_currency' currency.id%}"><button type="btn" class="btn new-add">Edit</button></a>
+    {% endfor %}
+{% endblock %}
+
+{% block content %}
+{%if view_currency %}
+{% for currency in view_currency  %}
+<div class="row row-sm mg-b-20">
+    <div class="col-sm-12 col-lg-12">
+      <div class="card card-table-one">
+        <h6 class="card-title">Currency Info</h6>
+        <hr>
+        <div class="view-agent">
+            <div class="row">
+                <div class="col-md-6 col-sm-12">
+                  <div class="border-right">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <p><span>From Currency :</span></p>
+                        </div>
+                        <div class="col-md-8">
+                            <p>{{currency.from_currency}}</p>
+                        </div>
+                    </div>    
+                    <div class="row">
+                        <div class="col-md-4">
+                            <p><span>Market Rate :</span></p>
+                        </div>
+                        <div class="col-md-8">
+                            <p>{{currency.market_rate}}</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <p><span>Total Commission :</span></p>
+                        </div>
+                        <div class="col-md-8">
+                            <p>{{currency.total_commission}}</p>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-12">
+                    <div class="border-right">        
+                    <div class="row">
+                        <div class="col-md-4">
+                            <p><span>To Currency :</span></p>
+                        </div>
+                        <div class="col-md-8">
+                            <p>{{currency.to_currency}}</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <p><span>Our Rate :</span></p>
+                        </div>
+                        <div class="col-md-8">
+                            <p>{{currency.our_rate}}</p>
+                        </div>
+                    </div>
+                  </div>
+                </div>
+            </div>
+        </div>
+      </div>
+    </div>
+</div>
+{% endfor %}
+{% else %}
+<p>No Record Found</p>
+{% endif %}
+{% endblock%}

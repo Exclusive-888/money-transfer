@@ -1,0 +1,170 @@
+{% extends 'base/customer-base.html' %}
+
+{% load static %}
+
+{%block title %}View My Transaction{%endblock%}
+
+{% block breadcrumbs %}
+
+<li><a href="{% url 'customeraccess:my_transaction' %}"><i class="iconify" data-icon="eva:arrow-ios-forward-fill"></i><span>My Transactions</span></a></li>
+<li><i class="iconify" data-icon="eva:arrow-ios-forward-fill"></i><span>View My Transaction</span></li>
+
+{% endblock %}
+
+
+{% block content %}
+{%if view_transaction %}
+{% for transaction in view_transaction %} 
+<div class="row row-sm mg-b-20">
+    <div class="col-sm-12 col-lg-12">
+        <div class="card card-table-one">
+        <h6 class="card-title">Money Transaction Detail</h6>
+        <hr />
+        <div class="view-agent">
+            <div class="row">
+                <div class="col-md-6 col-sm-12">
+                    <div class="border-right">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <p> <span>ID :</span> </p>
+                        </div>
+                        <div class="col-md-8">
+                            <p>{{transaction.id}}</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <p> <span>Receiver:</span> </p>
+                        </div>
+                        <div class="col-md-8">
+                            <p>{{transaction.receiver}}</p>
+                        </div>
+                    </div>
+                   
+                    <div class="row">
+                        <div class="col-md-4">
+                            <p> <span>Sending Date :</span> </p>
+                        </div>
+                        <div class="col-md-8">
+                            <p>{{transaction.transaction_date|date:"d/m/Y"}}</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <p> <span>Receiving Date :</span> </p>
+                        </div>
+                        <div class="col-md-8">
+                            <p>17/04/2021</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <p> <span>Money Sending Method :</span> </p>
+                        </div>
+                        <div class="col-md-8">
+                            <p>{{transaction.send_method}}</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <p><span>Money Receiving Method :</span></p>
+                        </div>
+                        <div class="col-md-8">
+                            <p>{{transaction.receive_method}}</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <p> <span>Exchange Rate :</span> </p>
+                        </div>
+                        <div class="col-md-8">
+                            <p>{{transaction.our_rate}}</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <p> <span>Transfer Fee :</span> </p>
+                        </div>
+                        <div class="col-md-8">
+                            <p>{{transaction.transfer_rate}}</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <p> <span>Total Payment :</span> </p>
+                        </div>
+                        <div class="col-md-8">
+                            <p>{{transaction.total_amount}}</p>
+                        </div>
+                    </div>
+                    
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-12">
+                    <div class="border-right">
+                    
+                    <div class="row">
+                        <div class="col-md-4">
+                            <p> <span>Receiver Account :</span> </p>
+                        </div>
+                        <div class="col-md-8">
+                            <p>{{transaction.receive_amount}}</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <p> <span>Sending Currency :</span> </p>
+                        </div>
+                        <div class="col-md-8">
+                            <p>{{transaction.from_currency}}</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <p> <span>Receiving Currency :</span> </p>
+                        </div>
+                        <div class="col-md-8">
+                            <p>{{transaction.to_currency}}</p>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-4">
+                            <p> <span>Payment Status :</span> </p>
+                        </div>
+                        <div class="col-md-8">
+                            <p>{{transaction.money_status}}</p>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-4">
+                            <p> <span>Reason For Sending :</span> </p>
+                        </div>
+                        <div class="col-md-8">
+                            <p>{{transaction.reason_type}}</p>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-4">
+                            <p> <span>Notes Description :</span> </p>
+                        </div>
+                        <div class="col-md-8">
+                            <p>{{transaction.description}}</p>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        
+        </div>
+    </div>
+</div>
+{% endfor %}
+{% else %}
+<p>No Record Found</p>  
+{% endif %}
+{% endblock%}

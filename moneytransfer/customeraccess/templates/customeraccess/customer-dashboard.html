@@ -1,0 +1,109 @@
+{% extends 'base/customer-base.html' %}
+
+{% load crispy_forms_tags %}
+
+{%block title %}Welcome To Money Transfer{%endblock%}
+
+{% block breadcrumbs %}
+
+{% endblock %}
+
+{%block content %}
+<div class="main-counter">
+ <div class="row">
+      <div class="col-md-4 col-sm-12">
+      <a href="{% url 'customeraccess:my_receiver' %}">
+      <div class='content'>
+         <div class="card">
+            <div class="card-body">
+               <div class="money-transfers">
+                  <div class="count-number">
+                     <span class="iconify" data-icon="ph:users-three"></span>
+                  </div>
+                  <div class="count-detail">
+                     <h3>{{total_receiver}}</h3>
+                      My Receivers</a>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>   
+      </div>
+      <div class="col-md-4 col-sm-12">
+      <a href="{% url 'customeraccess:my_transaction' %}">
+      <div class='content'>
+         <div class="card">
+            <div class="card-body">
+               <div class="money-transfers">
+                  <div class="count-number">
+                  <span class="iconify" data-icon="bi:truck"></span>
+                  </div>
+                  <div class="count-detail">
+                     <h3>{{total_money_transaction}}</h3>
+                     My Transaction</a>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>   
+      </div>
+      <div class="col-md-4 col-sm-12"> 
+      <a href="{% url 'customeraccess:my_transaction' %}">
+      <div class='content'>
+         <div class="card">
+            <div class="card-body">
+               <div class="money-transfers">
+                  <div class="count-number">
+                     <span class="iconify" data-icon="cil:money"></span>
+                  </div>
+                  <div class="count-detail">
+                     <h3>{{total_complete}}</h3>
+                     Received Transaction </a>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>   
+      </div>
+   </div>
+   <div class="row" >
+      <div class="col-md-4 col-sm-12">
+      <a href="{% url 'customeraccess:my_transaction' %}">
+         <div class='content'>
+         <div class="card">
+            <div class="card-body">
+               <div class="money-transfers">
+                  <div class="count-number">
+                     <span class="iconify" data-icon="ri:exchange-box-line"></span>
+                  </div>
+                  <div class="count-detail">
+                     <h3>{{total_pending}}</h3>
+                     Pending Transactions</a>
+                  </div>
+               </div>
+            </div>
+         </div>
+         </div>
+      </div>
+      <div class="col-md-4 col-sm-12">
+      <a href="{% url 'customeraccess:my_transaction' %}">
+      <div class='content'>
+         <div class="card">
+            <div class="card-body">
+               <div class="money-transfers">
+                  <div class="count-number">
+                     <span class="iconify" data-icon="carbon:money"></span>
+                  </div>
+                  <div class="count-detail">
+                     <h3>{{total_cancel}}</h3>
+                      Cancel Transactions</a>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>   
+      </div>
+   </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,267 @@
+{% extends 'base/base.html' %}
+{% load crispy_forms_tags %}
+
+{%block title %}Customer{%endblock%}
+
+{% block breadcrumbs %}
+
+<li><a href="{% url 'administration:customer' %}"><i class="iconify" data-icon="eva:arrow-ios-forward-fill"></i><span>Customer</span></a></li>
+<li><i class="iconify" data-icon="eva:arrow-ios-forward-fill"></i><span>Add New Customer</span></li>
+
+{% endblock %}
+
+{% block breadcrumbsbtn %} 
+
+{% for customer in view_customer  %}
+   <a href="{% url 'administration:edit_customer' customer.id %}"><button type="btn" class="btn new-add">Edit</button></a>
+   <a href="{% url 'administration:delete_customer' customer.id %}"><button type="btn" class="btn clear-btn">Delete</button></a>
+{% endfor %}
+
+{% endblock %}
+
+{% block content %}
+{%if view_customer %}
+{% for customer in view_customer  %}
+<div class="row row-sm mg-b-20">
+    <div class="col-sm-12 col-lg-12">
+        <div class="card card-table-one">
+        <h6 class="card-title">Basic Info</h6>
+        <hr>
+        <div class="view-agent">
+            <div class="row">
+                <div class="col-md-6 col-sm-12">
+                    <div class="border-right">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <p><span>Title :</span></p>
+                        </div>
+                        <div class="col-md-8">
+                            <p>{{customer.title_type}}</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <p><span>First Name :</span></p>
+                        </div>
+                        <div class="col-md-8">
+                            <p>{{customer.first_name}}</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <p><span>Last Name :</span></p>
+                        </div>
+                        <div class="col-md-8">
+                            <p>{{customer.last_name}}</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <p><span>Arabic Name:</span></p>
+                        </div>
+                        <div class="col-md-8">
+                            <p>{{customer.arabic_name}}</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <p><span>Email :</span></p>
+                        </div>
+                        <div class="col-md-8">
+                            <p><a href="mailto:{{customer.email}}">{{customer.email}}</a></p>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-12">
+                    <div class="border-right">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <p><span>Date of Birth :</span></p>
+                        </div>
+                        <div class="col-md-8">
+                            <p>{{customer.dob}}</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <p><span>Mobile Number:</span></p>
+                        </div>
+                        <div class="col-md-8">
+                            <p><a href="tel:{{customer.mobile_no}}">{{customer.mobile_no}}</a></p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <p><span>Office Phone Number:</span></p>
+                        </div>
+                        <div class="col-md-8">
+                            <p><a href="tel: {{customer.office_no}}">{{customer.office_no}}</a></p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <p><span>Home Phone Number :</span></p>
+                        </div>
+                        <div class="col-md-8">
+                            <p><a href="tel:{{customer.home_no}}">{{customer.home_no}}</a></p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <p><span>Status :</span></p>
+                        </div>
+                        <div class="col-md-8">
+                            <p>{{customer.status}}</p>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <h6 class="card-title card-title-profile2">Address Info</h6>
+        <hr>
+        <div class="view-agent">
+            <div class="row">
+                <div class="col-md-6 col-sm-12">
+                    <div class="border-right">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <p><span>Address :</span></p>
+                        </div>
+                        <div class="col-md-8">
+                            <p>{{customer.address}}</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <p><span>Nationality</span></p>
+                        </div>
+                        <div class="col-md-8">
+                            <p>{{customer.nationality}}</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <p><span>Postcode :</span></p>
+                        </div>
+                        <div class="col-md-8">
+                            <p>{{customer.postal_code}}</p>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-12">
+                    <div class="border-right">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <p><span>City :</span></p>
+                        </div>
+                        <div class="col-md-8">
+                            <p>{{customer.city}}</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <p><span>Country :</span></p>
+                        </div>
+                        <div class="col-md-8">
+                            <p>{{customer.country}} </p>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <h6 class="card-title card-title-profile2">Document Detail</h6>
+        <hr>
+        <div class="view-agent">
+            <div class="row">
+                <div class="col-md-6 col-sm-12">
+                    <div class="border-right">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <p><span>Document Type :</span></p>
+                        </div>
+                        <div class="col-md-8">
+                            <p>{{customer.documents_type}}</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <p><span>Document Number :</span></p>
+                        </div>
+                        <div class="col-md-8">
+                            <p>{{customer.document_no}}</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <p><span> End Date :</span></p>
+                        </div>
+                        <div class="col-md-8">
+                            <p>{{customer.doc_end_date}}</p>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-12">
+                    <div class="border-right">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <p><span>Uploaded Document :</span></p>
+                        </div>
+                        {% if customer.document_upload %}       
+                        <div class="col-md-8">
+                          <p><a href="{{customer.document_upload.url}}" target="_blank">{{customer.document_upload.url}}</a></p>
+                        </div>
+                        {% else %}
+                          None
+                        {% endif %}
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <p><span>Start Date :</span></p>
+                        </div>
+                        <div class="col-md-8">
+                            <p>{{customer.doc_start_date}} </p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <p><span>Proof of Address :</span></p>
+                        </div>
+                        <div class="col-md-8">
+                            <p>{{customer.prof_address}}</p>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <h6 class="card-title card-title-profile2">Notes Info</h6>
+        <hr>
+        <div class="view-agent">
+            <div class="row">
+                <div class="col-md-6 col-sm-12">
+                    <div class="border-right">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <p><span>Notes :</span></p>
+                        </div>
+                        <div class="col-md-8">
+                            <p>{{customer.notes}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+    </div>
+</div>
+{% endfor %}
+{% else %}
+<p>No Record Found</p>
+{% endif %}
+{% endblock%}
+

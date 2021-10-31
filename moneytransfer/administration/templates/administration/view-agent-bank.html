@@ -1,0 +1,125 @@
+{% extends 'base/base.html' %}
+
+{% load static %}
+
+{%block title %}View Agent bank{%endblock%}
+
+{% block breadcrumbs %}
+
+<li><a href="{% url 'administration:agent_bank' %}"><i class="iconify" data-icon="eva:arrow-ios-forward-fill"></i><span>Agent Bank</span></a></li>
+<li><i class="iconify" data-icon="eva:arrow-ios-forward-fill"></i><span>View Agent Bank </span></li>
+ 
+{% endblock %}
+
+{% block breadcrumbsbtn %} 
+
+   {% for bank in view_agentbank  %}
+<div class="breadcrumbs-btn">
+    <a href="{% url 'administration:edit_agent_bank' bank.id%}"><button type="btn" class="btn new-add">Edit</button></a>
+</div>
+{% endfor %}
+{% endblock %}
+
+
+{% block content %}
+{%if view_agentbank %}
+{% for bank in view_agentbank  %}
+<div class="row row-sm mg-b-20">
+    <div class="col-sm-12 col-lg-12">
+        <div class="card card-table-one">
+        <h6 class="card-title">Basic Info</h6>
+        <hr>
+        <div class="view-agent">
+            <div class="row">
+                <div class="col-md-6 col-sm-12">
+                    <div class="border-right">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <p><span>Bank Name :</span></p>
+                        </div>
+                        <div class="col-md-8">
+                            <p>{{bank.bank_name}}</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <p><span>Account Name :</span></p>
+                        </div>
+                        <div class="col-md-8">
+                            <p>{{bank.account_name}}</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <p><span>Account Type:</span></p>
+                        </div>
+                        <div class="col-md-8">
+                            <p>{{bank.account_type}}</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <p><span>Swift Code :</span></p>
+                        </div>
+                        <div class="col-md-8">
+                            <p>{{bank.swift_code}}</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <p><span>Branch Code :</span></p>
+                        </div>
+                        <div class="col-md-8">
+                            <p>{{bank.branch_code}}</p>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-12">
+                    <div class="border-right">
+                    
+                    <div class="row">
+                        <div class="col-md-4">
+                            <p><span>Agent Name :</span></p>
+                        </div>
+                        <div class="col-md-8">
+                            <p>{{bank.bank_agent}}</p>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4">
+                            <p><span>Account No :</span></p>
+                        </div>
+                        <div class="col-md-8">
+                            <p>{{bank.account_no}}</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <p><span>Iban :</span></p>
+                        </div>
+                        <div class="col-md-8">
+                            <p>{{bank.iban}}</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <p><span>Sort Code :</span></p>
+                        </div>
+                        <div class="col-md-8">
+                            <p>{{bank.sort_code}}</p>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+    </div>
+</div>
+{% endfor %}
+{% else %}
+<p>No Record Found</p>
+{% endif %}
+{% endblock%}
